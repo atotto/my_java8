@@ -39,19 +39,19 @@ public class ListSubDirTest {
 
 		{
 			File[] dirs = listSubDirsWithFilter(target);
-			String[] actual = Arrays.asList(dirs).stream().map(File::toString)
+			String[] actual = Arrays.stream(dirs).map(File::toString)
 					.toArray(String[]::new);
 			assertThat(actual, is(expect));
 		}
 		{
 			File[] dirs = listSubDirsWithLambda(target);
-			String[] actual = Arrays.asList(dirs).stream().map(File::toString)
+			String[] actual = Arrays.stream(dirs).map(File::toString)
 					.toArray(String[]::new);
 			assertThat(actual, is(expect));
 		}
 		{
 			File[] dirs = listSubDirsWithMethodReference(target);
-			String[] actual = Arrays.asList(dirs).stream().map(File::toString)
+			String[] actual = Arrays.stream(dirs).map(File::toString)
 					.toArray(String[]::new);
 			assertThat(actual, is(expect));
 		}
