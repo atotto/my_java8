@@ -20,7 +20,7 @@ public class ListFIlesTest {
 	}
 
 	public static String[] listFilesWithLambda(File dir, String ext) {
-		return dir.list((d, name) -> name.endsWith(ext));
+		return dir.list((d, name) -> name.endsWith(ext)); // capture `ext`
 	}
 
 	@Test
