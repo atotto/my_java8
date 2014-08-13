@@ -37,3 +37,7 @@ new Thread(uncheck(() -> { System.out.println("Zzz"); Thread.sleep(1000); })).st
 ```
 
 ヒント: どのような例外でもスローできるrunメソッドを持つRunnableExインタフェースを定義します。そして、public static Runnable uncheck(RunnableEx runner)を実装します。uncheck関数内でラムダ式を使用します。なぜ、RunnableExの代わりにCallable<Void>を使用できないのでしょうか。
+
+## ex07
+
+1. 2つのRunnableインスタンスをパラメータとして受け取り、最初のRunnableを実行した後に2つ目のRunnableを実行するRunnableを返すように、staticメソッドandThenを書きなさい。mainメソッドでは、andThenへの呼び出しに2つのラムダ式を渡して、返されたインスタンスを実行しなさい。
