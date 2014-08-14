@@ -67,3 +67,8 @@ for (String name : names)
 * http://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html
 * http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html
 
+## ex10
+
+Collectionsクラスのメソッドに目を通してください。みなさんが何でもできるとしたら、どのインタフェースにCollectionsクラスの各メソッドを入れますか。それぞれ、デフォルトメソッドになりますか。それとも、staticメソッドになりますか。
+
+* http://docs.oracle.com/javase/jp/8/api/java/util/Collections.html
