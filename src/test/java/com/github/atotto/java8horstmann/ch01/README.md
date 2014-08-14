@@ -55,3 +55,15 @@ for (String name : names)
 
 これは、正当なコードでしょうか。各ラムダ式は異なる値をキャプチャするのでしょうか。それとも、すべてのラムダ式が最後の値をキャプチャするのでしょうか。
 2. 従来の`for (int i = 0; i < names.length; i++)`ループを使用すると、どうなるでしょうか。
+
+## ex09
+
+1. java.util.CollectionのサブインタフェースであるCollection2を作成して、デフォルトメソッドとして`void forEachIf(Consumer<T> action, Predicate<T> filter)`を追加しなさい。そのメソッドは、filterがtrueを返してきた個々の要素に対してactionを適用します。
+2. どのような場面で、そのメソッドを活用できるでしょうか。
+
+参考資料:
+
+* http://docs.oracle.com/javase/8/docs/api/java/util/Collection.html
+* http://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html
+* http://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html
+
