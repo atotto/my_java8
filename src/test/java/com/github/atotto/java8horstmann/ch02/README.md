@@ -27,7 +27,7 @@ P.24の2.1節「イテレーションからストリーム操作へ」のforル�
 
 ## ex06
 
-P.27の2.3節「`filter`、`map`、`flatMap`メソッド」の`characterStream`メソッドは、最初に`ArrayList`を埋めて、それからそのリストをストリームに変換するという具合に、多少ぎこちないです。代わりに、ストリームを使用して1行で書きなさい̅。適切な方法は、`0`から`s.length()-1`までの整数のストリームを作成して、それを`s::charAt`メソッド参照でマップすることです。
+P.27の2.3節「`filter`、`map`、`flatMap`メソッド」の`characterStream`メソッドは、最初に`ArrayList`を埋めて、それからそのリストをストリームに変換するという具合に、多少ぎこちないです。代わりに、ストリームを使用して1行で書きなさい̅。適切な方法は、`0`から`s.length()-1`までの`IntStream`を作成して、それを`s::charAt`メソッド参照でマップすることです。
 
 ```java
    public static Stream<Character> characterStream(String s) {
@@ -36,6 +36,10 @@ P.27の2.3節「`filter`、`map`、`flatMap`メソッド」の`characterStream`�
       return result.stream();
    }
 ```
+
+参考資料:
+
+* http://docs.oracle.com/javase/jp/8/api/java/util/stream/IntStream.html
 
 ## ex07
 
