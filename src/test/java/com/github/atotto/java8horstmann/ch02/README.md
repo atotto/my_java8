@@ -56,6 +56,10 @@ P.27の2.3節「`filter`、`map`、`flatMap`メソッド」の`characterStream`�
 `Stream<ArrayList<T>>`内のすべての要素を、1つの`ArrayList<T>`へまとめなさい。
 具体的には、3つの形式のreduceを用いる方法を示しなさい。
 
+* `T reduce(T identity, BinaryOperator<T> accumulator)`
+* `Optional<T> reduce(BinaryOperator<T> accumulator)`
+* `<U> U reduce(U identity, BiFunction<U,? super T,U> accumulator, BinaryOperator<U> combiner)`
+
 ## ex10
 
 `Stream<Double>`の平均を計算するために使用できるreduceの呼び出しを書きなさい。
