@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.junit.Before;
@@ -23,15 +22,10 @@ public class ConbineStreamTest {
 
 	public static <T> ArrayList<T> conbineStream2(Stream<ArrayList<T>> stream) {
 		// Optional<T> reduce(BinaryOperator<T> accumulator)
-		Optional<ArrayList<T>> op = stream.reduce((list1, list2) -> {
+		return stream.reduce((list1, list2) -> {
 			list1.addAll(list2);
 			return list1;
-		});
-
-		if (op.isPresent()) {
-			return op.get();
-		}
-		return new ArrayList<T>();
+		}).orElse(new ArrayList<T>());
 	}
 
 	public static <T> ArrayList<T> conbineStream3(Stream<ArrayList<T>> stream) {
