@@ -8,14 +8,8 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,8 +17,6 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class PropertiesDialog extends JDialog {
 
@@ -103,14 +95,12 @@ public class PropertiesDialog extends JDialog {
 				JComboBox<String> font_name_list = new JComboBox<String>(fonts);
 
 				font_name_list.setSelectedItem(config.getFont().getName());
-				font_name_list.addItemListener(new ItemListener() {
-					@Override
-					public void itemStateChanged(ItemEvent e) {
-						config.setFont(new Font((String) e.getItem(), config
-								.getFont().getStyle(), config.getFont()
-								.getSize()));
-					}
-				});
+				font_name_list
+						.addItemListener(e -> {
+							config.setFont(new Font((String) e.getItem(),
+									config.getFont().getStyle(), config
+											.getFont().getSize()));
+						});
 				propertiesPanel.add(label);
 				propertiesPanel.add(font_name_list);
 
@@ -144,13 +134,10 @@ public class PropertiesDialog extends JDialog {
 				// set saved size
 				font_size_slider.setValue(config.getFont().getSize());
 
-				font_size_slider.addChangeListener(new ChangeListener() {
-					@Override
-					public void stateChanged(ChangeEvent e) {
-						JSlider source = (JSlider) e.getSource();
-						config.setFont(new Font(config.getFont().getFontName(),
-								config.getFont().getStyle(), source.getValue()));
-					}
+				font_size_slider.addChangeListener(e -> {
+					JSlider source = (JSlider) e.getSource();
+					config.setFont(new Font(config.getFont().getFontName(),
+							config.getFont().getStyle(), source.getValue()));
 				});
 				propertiesPanel.add(label);
 				propertiesPanel.add(font_size_slider);
@@ -172,17 +159,11 @@ public class PropertiesDialog extends JDialog {
 				JLabel label = new JLabel("Font color", JLabel.RIGHT);
 
 				ColorPicker colorpicker = new ColorPicker(config.getFontColor());
-				colorpicker
-						.addPropertyChangeListener(new PropertyChangeListener() {
-
-							@Override
-							public void propertyChange(PropertyChangeEvent evt) {
-								if (evt.getPropertyName().equals("color")) {
-									config.setFontColor((Color) evt
-											.getNewValue());
-								}
-							}
-						});
+				colorpicker.addPropertyChangeListener(e -> {
+					if (e.getPropertyName().equals("color")) {
+						config.setFontColor((Color) e.getNewValue());
+					}
+				});
 				propertiesPanel.add(label);
 				propertiesPanel.add(colorpicker);
 
@@ -204,17 +185,11 @@ public class PropertiesDialog extends JDialog {
 
 				ColorPicker colorpicker = new ColorPicker(
 						config.getBackgroundColor());
-				colorpicker
-						.addPropertyChangeListener(new PropertyChangeListener() {
-
-							@Override
-							public void propertyChange(PropertyChangeEvent evt) {
-								if (evt.getPropertyName().equals("color")) {
-									config.setBackgroundColor((Color) evt
-											.getNewValue());
-								}
-							}
-						});
+				colorpicker.addPropertyChangeListener(e -> {
+					if (e.getPropertyName().equals("color")) {
+						config.setBackgroundColor((Color) e.getNewValue());
+					}
+				});
 				propertiesPanel.add(label);
 				propertiesPanel.add(colorpicker);
 
@@ -248,12 +223,9 @@ public class PropertiesDialog extends JDialog {
 				// set saved size
 				slider.setValue((int) (config.getOpacity() * 100.0f));
 
-				slider.addChangeListener(new ChangeListener() {
-					@Override
-					public void stateChanged(ChangeEvent e) {
-						JSlider source = (JSlider) e.getSource();
-						config.setOpacity(source.getValue() / 100.0f);
-					}
+				slider.addChangeListener(e -> {
+					JSlider source = (JSlider) e.getSource();
+					config.setOpacity(source.getValue() / 100.0f);
 				});
 				propertiesPanel.add(label);
 				propertiesPanel.add(slider);
@@ -275,20 +247,14 @@ public class PropertiesDialog extends JDialog {
 			controlPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			// cancel
 			JButton cancel = new JButton("Cancel");
-			cancel.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					PropertiesDialog.this.revert(); // もとに戻す
-					dispose();
-				}
+			cancel.addActionListener(e -> {
+				PropertiesDialog.this.revert(); // もとに戻す
+				dispose();
 			});
 			// ok
 			JButton ok = new JButton("OK");
-			ok.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					dispose();
-				}
+			ok.addActionListener(e -> {
+				dispose();
 			});
 
 			controlPanel.add(cancel, BorderLayout.CENTER);

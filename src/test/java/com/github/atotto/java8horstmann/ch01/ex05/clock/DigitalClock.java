@@ -3,8 +3,6 @@ package com.github.atotto.java8horstmann.ch01.ex05.clock;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
@@ -80,12 +78,9 @@ public class DigitalClock extends JWindow {
 		addMouseMotionListener(mouseEvent);
 
 		// 1 sec
-		new Timer(1000, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				repaint();
-				progressPanel.updateSlider();
-			}
+		new Timer(1000, e -> {
+			repaint();
+			progressPanel.updateSlider();
 		}).start();
 
 		popupmenu = createMenuBar();
@@ -119,19 +114,13 @@ public class DigitalClock extends JWindow {
 
 	private JPopupMenu createMenuBar() {
 		JMenuItem propertiesMenu = new JMenuItem("Properties");
-		propertiesMenu.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				new PropertiesDialog(config);
-			}
+		propertiesMenu.addActionListener(e -> {
+			new PropertiesDialog(config);
 		});
 
 		JMenuItem quitMenu = new JMenuItem("Quit");
-		quitMenu.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				exitProcess();
-			}
+		quitMenu.addActionListener(e -> {
+			exitProcess();
 		});
 
 		JPopupMenu menuBar = new JPopupMenu();
