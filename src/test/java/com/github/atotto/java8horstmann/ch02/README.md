@@ -82,3 +82,8 @@ P.47の2.13「並列ストリーム」で説明したように、`AtomicInteger`
 ## ex13
 
 前の問題に対し次の点を変更し、その問題を解いてください。変更点として、短い文字列はフィルターで取り出し、`Collectors.groupingBy`と`Collectors.counting`と一緒に`collect`メソッドを使用しなさい。
+
+参考資料:
+
+* http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collectors.html#groupingBy-java.util.function.Function-java.util.stream.Collector-
+* http://docs.oracle.com/javase/jp/8/api/java/util/stream/Collectors.html#counting--
