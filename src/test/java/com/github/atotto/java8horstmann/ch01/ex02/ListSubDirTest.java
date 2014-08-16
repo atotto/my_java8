@@ -31,11 +31,11 @@ public class ListSubDirTest {
 	@Test
 	public void testListSubDirs() {
 		String[] expect = {
-				"src/test/java/com/github/atotto/java8horstmann/ch01/fixture/test1",
-				"src/test/java/com/github/atotto/java8horstmann/ch01/fixture/test2" };
+				"src/test/resources/fixture/dir/test1",
+				"src/test/resources/fixture/dir/test2" };
 
 		File target = new File(
-				"src/test/java/com/github/atotto/java8horstmann/ch01/fixture");
+				"src/test/resources/fixture/dir");
 
 		{
 			File[] dirs = listSubDirsWithFilter(target);

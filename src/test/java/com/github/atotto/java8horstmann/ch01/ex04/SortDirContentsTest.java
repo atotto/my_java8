@@ -28,14 +28,14 @@ public class SortDirContentsTest {
 	@Test
 	public void testListDirContents() {
 		String[] expect = {
-				"src/test/java/com/github/atotto/java8horstmann/ch01/fixture/test1/a",
-				"src/test/java/com/github/atotto/java8horstmann/ch01/fixture/test1/b",
-				"src/test/java/com/github/atotto/java8horstmann/ch01/fixture/test1/a.txt",
-				"src/test/java/com/github/atotto/java8horstmann/ch01/fixture/test1/b.txt",
-				"src/test/java/com/github/atotto/java8horstmann/ch01/fixture/test1/c.md", };
+				"src/test/resources/fixture/dir/test1/a",
+				"src/test/resources/fixture/dir/test1/b",
+				"src/test/resources/fixture/dir/test1/a.txt",
+				"src/test/resources/fixture/dir/test1/b.txt",
+				"src/test/resources/fixture/dir/test1/c.md", };
 
 		File target = new File(
-				"src/test/java/com/github/atotto/java8horstmann/ch01/fixture/test1");
+				"src/test/resources/fixture/dir/test1");
 
 		File[] files = sortDirContents(target.listFiles());
 		// Arrays.stream(files).forEach(System.out::println);

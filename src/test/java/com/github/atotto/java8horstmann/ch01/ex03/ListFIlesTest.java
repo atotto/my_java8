@@ -28,7 +28,7 @@ public class ListFIlesTest {
 		String[] expect = { "a.txt", "b.txt" };
 
 		File target = new File(
-				"src/test/java/com/github/atotto/java8horstmann/ch01/fixture/test1");
+				"src/test/resources/fixture/dir/test1");
 
 		{
 			String[] files = listFilesWithFilter(target, "txt");
