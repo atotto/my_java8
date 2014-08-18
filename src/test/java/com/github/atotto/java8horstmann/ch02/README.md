@@ -18,7 +18,13 @@ P.24の2.1節「イテレーションからストリーム操作へ」のforル�
 
 ## ex05
 
-`Stream.iterate`を使用して、`Math.random`を呼び出すのではなく、線形合同生成器(linear congruential generator)を直接実装して、乱数の無限ストリームを作成しなさい。そのような生成器では x0 = seedで始めて、a,c,mの適切な値に対して、xn + 1 = (axn+c)%m を生成します。パラメータa,c,m,seedを受け取り、Stream<Long>を生成するメソッドを実装しなさい。a=25214903917,c = 11,m = 2^48を試してみなさい。
+`Stream.iterate`を使用して、`Math.random`を呼び出すのではなく、線形合同生成器(linear congruential generator)を直接実装して、乱数の無限ストリームを作成しなさい。そのような生成器では x0 = seedで始めて、a,c,mの適切な値に対して、xn + 1 = (axn+c)%m を生成します。パラメータa,c,m,seedを受け取り、Stream<Long>を生成するメソッドを実装しなさい。
+a=25214903917,c = 11,m = 2^48を試してみなさい。
+
+* 引数
+  * a, c, m, seed
+* 戻り値
+  * Stream<Long>
 
 参考資料:
 
