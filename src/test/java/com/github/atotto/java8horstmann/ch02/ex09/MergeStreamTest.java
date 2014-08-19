@@ -55,19 +55,19 @@ public class MergeStreamTest {
 
 	@Test
 	public void testMeageStream1() {
-		ArrayList<String> conbined = mergeStream1(stream);
-		assertThat(conbined, is(contains(expected)));
+		ArrayList<String> joined = mergeStream1(stream);
+		assertThat(joined, is(contains(expected)));
 	}
 
 	@Test
 	public void testMeageStream2() {
-		ArrayList<String> conbined = mergeStream2(stream);
-		assertThat(conbined, is(contains(expected)));
+		ArrayList<String> joined = mergeStream2(stream);
+		assertThat(joined, is(contains(expected)));
 	}
 
 	@Test
 	public void testMeageStream3() {
-		ArrayList<String> conbined = mergeStream3(stream);
-		assertThat(conbined, is(contains(expected)));
+		ArrayList<String> joined = mergeStream3(stream);
+		assertThat(joined, is(contains(expected)));
 	}
 }
