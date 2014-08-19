@@ -2,10 +2,10 @@ package com.github.atotto.java8horstmann.ch01.ex06;
 
 import org.junit.Test;
 
-public class UncheckTest {
+public class UncheckExceptionTest {
 
 	@Test
-	public void testUncheck() throws InterruptedException {
+	public void testUncheckException() {
 		// before
 		new Thread(() -> {
 			try {
@@ -21,6 +21,7 @@ public class UncheckTest {
 		})).start();
 	}
 
+	@FunctionalInterface
 	interface RunnableEx {
 		public void run() throws Exception;
 	}
@@ -31,7 +32,7 @@ public class UncheckTest {
 				runner.run();
 			} catch (Exception ex) {
 				// uncheck exception
-				throw new IllegalStateException(ex);
+				throw new RuntimeException(ex);
 			}
 		};
 	}
