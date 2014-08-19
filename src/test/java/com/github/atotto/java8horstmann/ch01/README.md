@@ -75,7 +75,32 @@ Collectionsクラスのメソッドに目を通してください。みなさん
 
 ## ex11
 
-`void f()`メソッドを持つ、IとJの2つのインタフェースがあり、両方を実装しているクラスがあるとします。Iインタフェースのfメソッドが抽象、デフォルト、staticのどれかであり、Jインタフェースのfメソッドが抽象、デフォルト、staticのどれかである場合、すべての組み合わせで何が起きるでしょうか。同じように、スーパークラスSを拡張し、Iインタフェースを実装した場合に、スーパークラスもインタフェースも`void f()`メソッドを持っていたらどうなるかを調べなさい。
+1. `void f()`メソッドを持つ、IとJの2つのインタフェースがあり、両方を実装しているクラスがあるとします。Iインタフェースのfメソッドが抽象、デフォルト、staticのどれかであり、Jインタフェースのfメソッドが抽象、デフォルト、staticのどれかである場合、すべての組み合わせで何が起きるでしょうか。
+2. 同じように、スーパークラスSを拡張し、Iインタフェースを実装した場合に、スーパークラスもインタフェースも`void f()`メソッドを持っていたらどうなるかを調べなさい。
+
+Interface x Interface
+
+| I::f()   | J::f()   |
+| -------- | -------- |
+| abstract | abstract |
+| abstract | default  |
+| abstract | static   |
+| default  | default  |
+| default  | static   |
+| static   | static   |
+
+SuperClass x Interface
+
+| S::f()   | I::f()   |
+| abstract | abstract |
+| abstract | default  |
+| abstract | static   |
+| class    | abstract |
+| class    | default  |
+| class    | static   |
+| static   | abstract |
+| static   | default  |
+| static   | static   |
 
 ## ex12
 
