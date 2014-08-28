@@ -12,3 +12,11 @@
 
 [ReentrantLockクラス](http://docs.oracle.com/javase/jp/8/api/java/util/concurrent/locks/ReentrantLock.html))
 
+## ex03
+
+ここに記載がある: ["なぜアサーションの実装に、ライブラリの変更ではなく、言語の変更を採用したのですか。"](http://docs.oracle.com/javase/jp/7/technotes/guides/language/assert.html#design-faq)
+
+アサーションを無効にした場合にランタイムの実行速度の低下を抑えるために言語の変更としている。ライブラリにした場合、実行時に条件式を評価する必要が出る。
+
+ラムダ式で遅延評価ができるため、アサーションが無効の場合にその式を評価しないようなアサーションメソッドを作れば解決できる。
+
