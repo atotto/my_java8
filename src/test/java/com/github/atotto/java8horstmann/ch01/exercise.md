@@ -1,6 +1,8 @@
 ## ex01
 
-1. Arrays.sortメソッド内で呼び出されるコンパレータのコードは、sortメソッドを呼び出したスレッドて実行されるでしょうか。それとも、別のスレッドで実行されるでしょうか。
+[Comparator<T>](http://docs.oracle.com/javase/jp/8/api/java/util/Comparator.html)
+
+コンパレータは実行したスレッドでコールしているので同じスレッド内で実行される。
 
 ## ex02
 
