@@ -33,6 +33,6 @@ public class ZipTest {
 		Stream<String> zipped = zip(st1, st2);
 		String message = zipped.reduce("", (x, y) -> x + y);
 
-		assertThat("stream", is(message));
+		assertThat(message, is("stream"));
 	}
 }
