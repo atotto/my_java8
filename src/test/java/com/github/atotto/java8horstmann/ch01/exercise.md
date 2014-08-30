@@ -6,19 +6,31 @@
 
 ## ex02
 
-1. java.io.FileクラスのlistFiles(FileFilter)メソッドとisDirectoryメソッドを使用して、指定されたディレクトリの下のすべてのサブディレクトリを返すメソッドを書きなさい。
-2. FileFilterオブジェクトではなく、ラムダ式を使用しなさい。
-3. 同じことを、メソッド参照を用いて行いなさい。
+[java.io.File](http://docs.oracle.com/javase/jp/8/api/java/io/File.html)
+
+指定されたディレクトリの下のすべてのサブディレクトリを返す以下のメソッドを作る:
+
+1. listFiles(FileFilter)メソッドとisDirectoryメソッドを使用
+2. FileFilterオブジェクトではなく、ラムダ式を使用
+3. FileFilterオブジェクトではなく、メソッド参照を使用
 
 ## ex03
 
-1. java.io.Fileクラスのlist(FilenameFilter)を使用して、指定されたディレクトリの下の指定された拡張子を持つ、すべてのファイルを返すメソッドを書きなさい。
-2. FilenameFilterではなく、ラムダ式を使用しなさい。
-3. エンクロージングスコープからキャプチャされる変数はどれですか。
+[java.io.File](http://docs.oracle.com/javase/jp/8/api/java/io/File.html)
+
+指定されたディレクトリの下の指定された拡張子を持つ、すべてのファイルを返すメソッドを作る:
+
+1. list(FilenameFilter)を使用
+2. FilenameFilterではなく、ラムダ式を使用
+  * エンクロージングスコープからキャプチャされる変数は？
 
 ## ex04
 
-1. Fileオブジェクトの配列が与えられたとします。その配列をソートして、ファイルの前にディレクトリが来るようにし、ファイルとディレクトリのそれぞれのグループではパス名でソートされるようにしなさい。Comparatorではなく、ラムダ式を使用しなさい。
+Fileオブジェクトの配列を以下の条件でソートする:
+
+* ファイルの前にディレクトリが来るようにする
+* ファイルとディレクトリのそれぞれのグループではパス名でソートされるようする
+* Comparatorではなく、ラムダ式を使用する
 
 ## ex05
 
