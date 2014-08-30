@@ -31,8 +31,7 @@ public class GroupingByTest {
 	}
 
 	@Test
-	public void testCounter_ParallelStreamWithAtomicInteger()
-			throws IOException {
+	public void testCounter_ParallelStreamWithGrouping() throws IOException {
 
 		Map<Integer, Long> results = words.parallelStream()
 				.filter(s -> s.length() < kWORD_SIZE)
