@@ -22,7 +22,6 @@
 
 1. list(FilenameFilter)を使用
 2. FilenameFilterではなく、ラムダ式を使用
-  * エンクロージングスコープからキャプチャされる変数は？
 
 ## ex04
 
@@ -34,31 +33,23 @@ Fileオブジェクトの配列を以下の条件でソートする:
 
 ## ex05
 
-1. みなさんのプロジェクトの1つから、ActionListenerやRunnableといったインタフェースを多数使用しているファイルを1つ選んでください。それらのインタフェースの使用をラムダ式で置き換えなさい。
-2. 置き換えた結果、コードが何行短くなりましたか。
-3. コードは読みやすくなりましたか。
-4. メソッド参照を使用することができましたか。
+適当なプロジェクトのActionListenerやRunnableといったインタフェースをラムダ式で置き換える:
+
+* 置き換えた結果、コードが何行短くなるか
+* コードは読みやすくなるか
+* メソッド参照を使用することができたか
 
 ## ex06
 
-1. Runnable内でチェックされる例外を処理しなければならないことが、いつも面倒だと思っていませんか。チェックされるすべての例外をキャッチし、それをチェックされない例外へ変えるuncheckメソッドを書きなさい。
-
-例:
-
-```java
-new Thread(uncheck(() -> { System.out.println("Zzz"); Thread.sleep(1000); })).start();
-// catch (InterruptedException) は必要ありません
-```
-
-ヒント: どのような例外でもスローできるrunメソッドを持つRunnableExインタフェースを定義します。そして、public static Runnable uncheck(RunnableEx runner)を実装します。uncheck関数内でラムダ式を使用します。なぜ、RunnableExの代わりにCallable<Void>を使用できないのでしょうか。
+Runnable内でチェックされるすべての例外をキャッチし、それをチェックされない例外へ変えるuncheckメソッドを作る
 
 ## ex07
 
-1. 2つのRunnableインスタンスをパラメータとして受け取り、最初のRunnableを実行した後に2つ目のRunnableを実行するRunnableを返すように、staticメソッドandThenを書きなさい。mainメソッドでは、andThenへの呼び出しに2つのラムダ式を渡して、返されたインスタンスを実行しなさい。
+最初のRunnableを実行した後に2つ目のRunnableを実行するRunnableを返す、staticメソッドandThenを作る
+
+[BiFunction](http://docs.oracle.com/javase/jp/8/api/java/util/function/BiFunction.html)に少し似ている？
 
 ## ex08
-
-1. ラムダ式が次のような拡張forループ内の値をキャプチャした場合には、どうなりますか。
 
 ```java
 String[] names = {"Peter", "Paul", "Mary"};
@@ -67,13 +58,25 @@ for (String name : names)
     runners.add(() -> System.out.println(name));
 ```
 
-これは、正当なコードでしょうか。各ラムダ式は異なる値をキャプチャするのでしょうか。それとも、すべてのラムダ式が最後の値をキャプチャするのでしょうか。
-2. 従来の`for (int i = 0; i < names.length; i++)`ループを使用すると、どうなるでしょうか。
+ラムダ式は拡張forループ内の値をそれぞれキャプチャできる。
+従来の`for (int i = 0; i < names.length; i++)`ループを使用すると、変数iがラムダ式変化するためコンパイルエラーになる。
 
 ## ex09
 
-1. java.util.CollectionのサブインタフェースであるCollection2を作成して、デフォルトメソッドとして`void forEachIf(Consumer<T> action, Predicate<T> filter)`を追加しなさい。そのメソッドは、filterがtrueを返してきた個々の要素に対してactionを適用します。
-2. どのような場面で、そのメソッドを活用できるでしょうか。
+```java
+	public interface Collection2<E> extends Collection<E> {
+		default void forEachIf(Consumer<E> action, Predicate<E> filter) {
+			this.forEach(act -> {
+				if (filter.test(act)) {
+					action.accept(act);
+				}
+			});
+		}
+	}
+```
+
+Collection2はArrayListなどのCollectionを実装したクラスとは別のインターフェースとなるため、Collection2で実装したクラスを準備する必要がある。
+あまり使いどころがわからなかった・・
 
 参考資料:
 
@@ -83,14 +86,14 @@ for (String name : names)
 
 ## ex10
 
-Collectionsクラスのメソッドに目を通してください。みなさんが何でもできるとしたら、どのインタフェースにCollectionsクラスの各メソッドを入れますか。それぞれ、デフォルトメソッドになりますか。それとも、staticメソッドになりますか。
+[Collectionsクラス](http://docs.oracle.com/javase/jp/8/api/java/util/Collections.html)
 
-* http://docs.oracle.com/javase/jp/8/api/java/util/Collections.html
+このままのメソッドであれば、すべてstaticなメソッドで関連するインターフェースへ移動する。
+関連するインターフェースとは、第一引数、戻り値で判断できると思う。
 
 ## ex11
 
-1. `void f()`メソッドを持つ、IとJの2つのインタフェースがあり、両方を実装しているクラスがあるとします。Iインタフェースのfメソッドが抽象、デフォルト、staticのどれかであり、Jインタフェースのfメソッドが抽象、デフォルト、staticのどれかである場合、すべての組み合わせで何が起きるでしょうか。
-2. 同じように、スーパークラスSを拡張し、Iインタフェースを実装した場合に、スーパークラスもインタフェースも`void f()`メソッドを持っていたらどうなるかを調べなさい。
+組み合わせ:
 
 Interface x Interface
 
@@ -118,10 +121,25 @@ SuperClass x Interface
 
 ## ex12
 
-インタフェースにメソッドを追加することは既存のコードを動作させなくするので、過去には悪いことであると言われていました。今では、デフォルト実装も提供するのであれは、新たなメソッドを追加することは問題ありません。そのような追加はどれだけ安全なのでしょうか。
+Collectionにあるdefault methodと同じシグニチャを持つメソッドを定義してあるとエラーとなる
 
-1. Collectionインタフェースの新たなstreamメソッドが古いコードのコンパイルを失敗させるシナリオを述べなさい。
-2. バイナリ互換性についてはどうでしょうか。
-3. JARファイルからの古いコードは動作するでしょうか。
+```java
+	class MyArrayList<T> extends ArrayList<T> {
+		/*
+		 * Error: Description Resource Path Location Type The return type is
+		 * incompatible with Collection<T>.stream()
+		 */
+		public Stream<T> stream() {
+			return new Stream<T>();
+		}
+
+		public Stream<T> parallelStream() {
+			return new Stream<T>();
+		}
+	}
+```
+
+Java SE 7とのバイナリ互換性は基本的にある 
+http://www.oracle.com/technetwork/jp/java/javase/overview/8-compatibility-guide-2156366-ja.html
 
 
