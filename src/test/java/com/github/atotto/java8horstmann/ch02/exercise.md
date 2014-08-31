@@ -13,6 +13,11 @@ streamでlimitをするとそれ以降のfilterメソッドは呼ばれない。
 
 `stream` vs `parallelStream`
 
+```
+BenchParallelStream    1848040 ns/op 
+BenchSequentialStream  2428030 ns/op 
+```
+
 ## ex04
 
 ```java
