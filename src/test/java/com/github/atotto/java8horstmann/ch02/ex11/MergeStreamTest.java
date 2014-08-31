@@ -29,7 +29,9 @@ public class MergeStreamTest {
 			}
 			Iterator<T> iterator = l.iterator();
 			for (int index = size; iterator.hasNext(); index++) {
-				list.set(index, iterator.next());
+				synchronized (list) {
+					list.set(index, iterator.next());
+				}
 			}
 		});
 
