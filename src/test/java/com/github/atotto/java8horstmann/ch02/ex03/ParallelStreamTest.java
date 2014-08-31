@@ -24,29 +24,29 @@ public class ParallelStreamTest {
 		words = Arrays.asList(contents.split("[\\P{L}]+"));
 	}
 
-	@Test
-	public void benchStream() throws IOException {
-		class B extends Benchmark {
-			public void benchmark() {
-				words.stream().filter(w -> w.length() > 12).count();
-			}
-		}
+	static int N = 100;
 
-		int n = 10;
-		long time = new B().repeat(n);
-		System.out.printf("BenchStream        \t%10d ns/op \n", time / n);
+	@Test
+	public void benchSequentialStream() throws IOException {
+
+		Benchmark b = () -> {
+			words.stream().sequential().filter(w -> w.length() > 12).count();
+		};
+		b.wakeUp(N);
+
+		long time = b.run(N);
+		System.out.printf("BenchSequentialStream\t%10d ns/op \n", time / N);
 	}
 
 	@Test
 	public void benchParallelStream() throws IOException {
-		class B extends Benchmark {
-			public void benchmark() {
-				words.parallelStream().filter(w -> w.length() > 12).count();
-			}
-		}
 
-		int n = 10;
-		long time = new B().repeat(n);
-		System.out.printf("BenchParallelStream\t%10d ns/op \n", time / n);
+		Benchmark b = () -> {
+			words.stream().parallel().filter(w -> w.length() > 12).count();
+		};
+		b.wakeUp(N);
+
+		long time = b.run(N);
+		System.out.printf("BenchParallelStream\t%10d ns/op \n", time / N);
 	}
 }
