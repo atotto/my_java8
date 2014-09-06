@@ -20,3 +20,13 @@
 
 ラムダ式で遅延評価ができるため、アサーションが無効の場合にその式を評価しないようなアサーションメソッドを作れば解決できる。
 
+## ex07
+
+`Comparator<String>` を返すメソッド:
+
+* normal
+* reversed
+* case-sensitive
+* case-insensitive
+* space-sensitive
+* space-insensitive
