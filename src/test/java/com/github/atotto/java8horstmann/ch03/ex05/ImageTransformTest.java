@@ -58,10 +58,10 @@ public class ImageTransformTest extends Application {
 		return out;
 	}
 
-	public static ColorTransformer setFrame(Image src) {
+	public static ColorTransformer setFrame(Image in) {
 		return (x, y, c) -> {
-			if (x < 10 || x > src.getWidth() - 10 || y < 10
-					|| y > src.getHeight() - 10) {
+			if (x < 10 || x > in.getWidth() - 10 || y < 10
+					|| y > in.getHeight() - 10) {
 				return Color.GRAY;
 			} else {
 				return c;
