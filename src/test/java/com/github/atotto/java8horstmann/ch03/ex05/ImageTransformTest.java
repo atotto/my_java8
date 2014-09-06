@@ -58,24 +58,22 @@ public class ImageTransformTest extends Application {
 		return out;
 	}
 
-	public static Image setFrame(Image src) {
-		return transform(
-				src,
-				(x, y, c) -> {
-					if (x < 10 || x > src.getWidth() - 10 || y < 10
-							|| y > src.getHeight() - 10) {
-						return Color.GRAY;
-					} else {
-						return c;
-					}
-				});
+	public static ColorTransformer setFrame(Image src) {
+		return (x, y, c) -> {
+			if (x < 10 || x > src.getWidth() - 10 || y < 10
+					|| y > src.getHeight() - 10) {
+				return Color.GRAY;
+			} else {
+				return c;
+			}
+		};
 	}
 
 	@Override
 	public void start(Stage stage) {
 		String path = getClass().getResource("/images/project.png").toString();
 		Image src = new Image(path);
-		Image dst = setFrame(src);
+		Image dst = transform(src, setFrame(src));
 		File file = new File("out.png");
 		try {
 			ImageIO.write(SwingFXUtils.fromFXImage(dst, null), "png", file);
