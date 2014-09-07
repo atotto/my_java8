@@ -30,3 +30,8 @@
 * case-insensitive
 * space-sensitive
 * space-insensitive
+
+## ex08
+
+画像に任意の幅と色の枠をつける`ColorTransformer`を生成するメソッドを作る。
+
