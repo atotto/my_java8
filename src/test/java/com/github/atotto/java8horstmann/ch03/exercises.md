@@ -38,3 +38,12 @@
 ## ex09
 
 `Comparator<Object> lexicographicComparator(String... fieldNames)`メソッドを作る。
+
+## ex10
+
+skip
+
+## ex11
+
+`ColorTransformer compose(ColorTransformer tr1, ColorTransformer tr2)`
+
