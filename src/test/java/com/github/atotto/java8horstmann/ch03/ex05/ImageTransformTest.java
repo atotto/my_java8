@@ -1,11 +1,9 @@
 package com.github.atotto.java8horstmann.ch03.ex05;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.function.UnaryOperator;
 
 import javafx.application.Application;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,14 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
-
 import org.junit.Test;
-
-@FunctionalInterface
-interface ColorTransformer {
-	Color apply(int x, int y, Color colorAtXY);
-}
 
 public class ImageTransformTest extends Application {
 
@@ -74,16 +65,9 @@ public class ImageTransformTest extends Application {
 		String path = getClass().getResource("/images/project.png").toString();
 		Image src = new Image(path);
 		Image dst = transform(src, setFrame(src));
-		File file = new File("out.png");
-		try {
-			ImageIO.write(SwingFXUtils.fromFXImage(dst, null), "png", file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		stage.setScene(new Scene(new HBox(new ImageView(src),
 				new ImageView(dst))));
 		stage.show();
-		// Platform.exit();
 	}
 
 	public static void main(String[] args) {
