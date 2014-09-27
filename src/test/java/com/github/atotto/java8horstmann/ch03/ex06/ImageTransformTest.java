@@ -33,10 +33,6 @@ public class ImageTransformTest extends Application {
 		return out;
 	}
 
-	public static UnaryOperator<Color> brighten(double factor) {
-		return c -> c.deriveColor(0, 1, factor, 1);
-	}
-
 	public static <T> Image transform(Image in, BiFunction<Color, T, Color> f,
 			T arg) {
 		int width = (int) in.getWidth();
@@ -50,12 +46,16 @@ public class ImageTransformTest extends Application {
 		return out;
 	}
 
+	public static UnaryOperator<Color> brighten(double factor) {
+		return c -> c.deriveColor(0, 1, factor, 1);
+	}
+
 	public void start(Stage stage) {
 		String path = getClass().getResource("/images/project.png").toString();
 		Image src = new Image(path);
-		// Image dst = transform(src, brighten(1.2));
 		Image dst = transform(src,
 				(c, factor) -> c.deriveColor(0, 1, factor, 1), 1.2);
+		// Image dst = transform(src, brighten(1.2));
 
 		stage.setScene(new Scene(new HBox(new ImageView(src),
 				new ImageView(dst))));

@@ -20,6 +20,29 @@
 
 ラムダ式で遅延評価ができるため、アサーションが無効の場合にその式を評価しないようなアサーションメソッドを作れば解決できる。
 
+## ex04
+
+skip
+
+## ex05
+
+画像の周りに10pxの枠をつける。
+UnaryOperator<Color>をColorTransformerで書きなおす。
+
+## ex06
+
+`public static <T> Image transform(Image in, BiFunction<Color, T, Color> f, T arg)` を実装する。
+
+本文は`BiFunction<Color, T> f`となっているが`BiFunction<Color, T, Color> f`では？
+
+実際には関数を返すメソッドを使う（P.66）：
+
+```java
+	public static UnaryOperator<Color> brighten(double factor) {
+		return c -> c.deriveColor(0, 1, factor, 1);
+	}
+```
+
 ## ex07
 
 `Comparator<String>` を返すメソッド:
