@@ -31,7 +31,7 @@ public class ImageTransformTest extends Application {
 		};
 	}
 
-	public static ColorTransformer toTransformer(UnaryOperator<Color> op) {
+	public static ColorTransformer allover(UnaryOperator<Color> op) {
 		return (x, y, c) -> op.apply(c);
 	}
 
@@ -40,7 +40,7 @@ public class ImageTransformTest extends Application {
 		String path = getClass().getResource("/images/project.png").toString();
 		Image src = new Image(path);
 		Image dst = transform(src,
-				compose(setFrame(src), toTransformer(Color::brighter)));
+				compose(setFrame(src), allover(Color::brighter)));
 		stage.setScene(new Scene(new HBox(new ImageView(src),
 				new ImageView(dst))));
 		stage.show();

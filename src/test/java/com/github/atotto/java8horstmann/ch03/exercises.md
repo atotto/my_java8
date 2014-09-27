@@ -68,5 +68,7 @@ skip
 
 ## ex11
 
-`ColorTransformer compose(ColorTransformer tr1, ColorTransformer tr2)`
+2つの`ColorTransformer`を処理できる`ColorTransformer compose(ColorTransformer tr1, ColorTransformer tr2)`メソッドを作る。
+
+`UnaryOperator<Color>`を全体に適用する`ColorTransformer`を返すメソッドを作る
 
