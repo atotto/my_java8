@@ -1,5 +1,6 @@
 package com.github.atotto.java8horstmann.ch01.ex02;
 
+import static com.github.atotto.myutil.Filepath.toSlash;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -30,29 +31,27 @@ public class ListSubDirTest {
 
 	@Test
 	public void testListSubDirs() {
-		String[] expect = {
-				"src/test/resources/fixture/dir/test1",
+		String[] expect = { "src/test/resources/fixture/dir/test1",
 				"src/test/resources/fixture/dir/test2" };
 
-		File target = new File(
-				"src/test/resources/fixture/dir");
+		File target = new File("src/test/resources/fixture/dir");
 
 		{
 			File[] dirs = listSubDirsWithFilter(target);
-			String[] actual = Arrays.stream(dirs).map(File::toString)
-					.toArray(String[]::new);
+			String[] actual = Arrays.stream(dirs)
+					.map(f -> toSlash(f.toString())).toArray(String[]::new);
 			assertThat(actual, is(expect));
 		}
 		{
 			File[] dirs = listSubDirsWithLambda(target);
-			String[] actual = Arrays.stream(dirs).map(File::toString)
-					.toArray(String[]::new);
+			String[] actual = Arrays.stream(dirs)
+					.map(f -> toSlash(f.toString())).toArray(String[]::new);
 			assertThat(actual, is(expect));
 		}
 		{
 			File[] dirs = listSubDirsWithMethodReference(target);
-			String[] actual = Arrays.stream(dirs).map(File::toString)
-					.toArray(String[]::new);
+			String[] actual = Arrays.stream(dirs)
+					.map(f -> toSlash(f.toString())).toArray(String[]::new);
 			assertThat(actual, is(expect));
 		}
 	}

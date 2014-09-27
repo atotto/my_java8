@@ -1,5 +1,6 @@
 package com.github.atotto.java8horstmann.ch01.ex04;
 
+import static com.github.atotto.myutil.Filepath.toSlash;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -27,20 +28,17 @@ public class SortDirContentsTest {
 
 	@Test
 	public void testListDirContents() {
-		String[] expect = {
-				"src/test/resources/fixture/dir/test1/a",
+		String[] expect = { "src/test/resources/fixture/dir/test1/a",
 				"src/test/resources/fixture/dir/test1/b",
 				"src/test/resources/fixture/dir/test1/a.txt",
 				"src/test/resources/fixture/dir/test1/b.txt",
 				"src/test/resources/fixture/dir/test1/c.md", };
 
-		File target = new File(
-				"src/test/resources/fixture/dir/test1");
+		File target = new File("src/test/resources/fixture/dir/test1");
 
 		File[] files = sortDirContents(target.listFiles());
-		// Arrays.stream(files).forEach(System.out::println);
 
-		String[] actual = Arrays.stream(files).map(File::toString)
+		String[] actual = Arrays.stream(files).map(f -> toSlash(f.toString()))
 				.toArray(String[]::new);
 		assertThat(actual, is(expect));
 	}

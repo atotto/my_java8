@@ -1,6 +1,5 @@
 package com.github.atotto.java8horstmann.ch02.ex03;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,33 +19,34 @@ public class ParallelStreamTest {
 	@Before
 	public void setUp() throws Exception {
 		contents = new String(Files.readAllBytes(Paths.get(getClass()
-				.getResource("/alice.txt").getFile())), StandardCharsets.UTF_8);
+				.getResource("/war-and-peace.txt").getFile())),
+				StandardCharsets.UTF_8);
 		words = Arrays.asList(contents.split("[\\P{L}]+"));
 	}
 
-	@Test
-	public void benchStream() throws IOException {
-		class B extends Benchmark {
-			public void benchmark() {
-				words.stream().filter(w -> w.length() > 12).count();
-			}
-		}
+	static int N = 100;
 
-		int n = 10;
-		long time = new B().repeat(n);
-		System.out.printf("BenchStream        \t%10d ns/op \n", time / n);
+	@Test
+	public void benchSequentialStream() {
+
+		Benchmark b = () -> {
+			words.stream().sequential().filter(w -> w.length() > 12).count();
+		};
+		b.wakeUp(3);
+
+		long time = b.run(N);
+		System.out.printf("BenchSequentialStream\t%10d ns/op \n", time / N);
 	}
 
 	@Test
-	public void benchParallelStream() throws IOException {
-		class B extends Benchmark {
-			public void benchmark() {
-				words.parallelStream().filter(w -> w.length() > 12).count();
-			}
-		}
+	public void benchParallelStream() {
 
-		int n = 10;
-		long time = new B().repeat(n);
-		System.out.printf("BenchParallelStream\t%10d ns/op \n", time / n);
+		Benchmark b = () -> {
+			words.stream().parallel().filter(w -> w.length() > 12).count();
+		};
+		b.wakeUp(3);
+
+		long time = b.run(N);
+		System.out.printf("BenchParallelStream\t%10d ns/op \n", time / N);
 	}
 }
