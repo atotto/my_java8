@@ -72,3 +72,7 @@ skip
 
 `UnaryOperator<Color>`を全体に適用する`ColorTransformer`を返すメソッドを作る
 
+## ex12
+
+`LatentImage`を拡張して`UnaryOperator<Color>`と`ColorTransformer`を受け付けるように。
+
