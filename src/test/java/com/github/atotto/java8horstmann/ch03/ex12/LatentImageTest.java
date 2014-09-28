@@ -22,9 +22,7 @@ public class LatentImageTest {
 				.toString());
 		Image finalImage = LatentImage.from(image).transform(Color::brighter)
 				.transform(Color::grayscale).toImage();
-		Image expected = new Image(getClass().getResource(
-				"/fixture/images/ch03.ex12.png").toString());
 
-		ImageUtil.assertEquals(expected, finalImage);
+		ImageUtil.assertEquals("/fixture/images/ch03.ex12.png", finalImage);
 	}
 }

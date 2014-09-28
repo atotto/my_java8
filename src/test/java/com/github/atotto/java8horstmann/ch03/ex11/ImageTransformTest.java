@@ -5,23 +5,21 @@ import static com.github.atotto.java8horstmann.ch03.ex05.ImageTransformTest.tran
 
 import java.util.function.UnaryOperator;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.atotto.java8horstmann.ch03.ex05.ColorTransformer;
+import com.github.atotto.myutil.javafx.ApplicationTest;
+import com.github.atotto.myutil.javafx.ImageUtil;
 
-public class ImageTransformTest extends Application {
+public class ImageTransformTest {
 
-	@Test
-	public void test() {
-		// TODO add image test
+	@BeforeClass
+	public static void setup() {
+		ApplicationTest.launch();
 	}
 
 	public static ColorTransformer compose(ColorTransformer tr1,
@@ -35,18 +33,13 @@ public class ImageTransformTest extends Application {
 		return (x, y, c) -> op.apply(c);
 	}
 
-	@Override
-	public void start(Stage stage) {
-		String path = getClass().getResource("/images/project.png").toString();
+	@Test
+	public void testImage() {
+		String path = getClass().getResource("/images/image01.jpg").toString();
 		Image src = new Image(path);
 		Image dst = transform(src,
 				compose(setFrame(src), allover(Color::brighter)));
-		stage.setScene(new Scene(new HBox(new ImageView(src),
-				new ImageView(dst))));
-		stage.show();
-	}
 
-	public static void main(String[] args) {
-		Application.launch(args);
+		ImageUtil.assertEquals("/fixture/images/ch03.frame03.png", dst);
 	}
 }

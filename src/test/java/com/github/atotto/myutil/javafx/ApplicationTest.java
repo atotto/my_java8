@@ -13,9 +13,9 @@ public class ApplicationTest extends Application {
 		if (started) {
 			return;
 		}
+		started = true;
 		Runnable r = () -> {
 			Application.launch(new String());
-			started = true;
 		};
 		new Thread(r).start();
 		try {

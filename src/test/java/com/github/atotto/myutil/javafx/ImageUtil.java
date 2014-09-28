@@ -15,6 +15,20 @@ import javax.imageio.ImageIO;
 import org.junit.Assert;
 
 public class ImageUtil {
+
+	/**
+	 * Write image to file system as a .png image
+	 * 
+	 * @param path
+	 *            output file path
+	 * @param image
+	 *            output image
+	 */
+	public static void savePngImage(String path, Image image) {
+		File file = new File(path);
+		savePngImage(file, image);
+	}
+
 	/**
 	 * Write image to file system as a .png image
 	 * 
@@ -29,6 +43,18 @@ public class ImageUtil {
 		} catch (IOException e) {
 			Assert.fail(e.getMessage());
 		}
+	}
+
+	/**
+	 * Asserts that two images are equal.
+	 * 
+	 * @param expectedImagePath
+	 * @param actual
+	 */
+	public static void assertEquals(String expectedImagePath, Image actual) {
+		Image expected = new Image(ImageUtil.class.getResource(
+				expectedImagePath).toString());
+		assertEquals(expected, actual);
 	}
 
 	/**
