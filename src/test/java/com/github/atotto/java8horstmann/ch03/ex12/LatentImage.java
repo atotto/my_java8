@@ -8,9 +8,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
+import com.github.atotto.java8horstmann.ch03.ex05.ColorTransformer;
+
 public class LatentImage {
 	private Image in;
-	private List<UnaryOperator<Color>> pendingOperations;
+	private List<ColorTransformer> pendingOperations;
 
 	public static LatentImage from(Image in) {
 		LatentImage result = new LatentImage();
@@ -20,6 +22,13 @@ public class LatentImage {
 	}
 
 	LatentImage transform(UnaryOperator<Color> f) {
+		pendingOperations.add((x, y, c) -> {
+			return f.apply(c);
+		});
+		return this;
+	}
+
+	LatentImage transform(ColorTransformer f) {
 		pendingOperations.add(f);
 		return this;
 	}
@@ -31,8 +40,9 @@ public class LatentImage {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				Color c = in.getPixelReader().getColor(x, y);
-				for (UnaryOperator<Color> f : pendingOperations)
-					c = f.apply(c);
+				for (ColorTransformer f : pendingOperations) {
+					c = f.apply(x, y, c);
+				}
 				out.getPixelWriter().setColor(x, y, c);
 			}
 		}

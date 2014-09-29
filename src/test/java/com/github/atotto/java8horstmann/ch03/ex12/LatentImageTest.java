@@ -17,11 +17,24 @@ public class LatentImageTest {
 	}
 
 	@Test
-	public void testLatentImage() {
+	public void testLatentImage_with_UnaryOperatorColor() {
 		Image image = new Image(getClass().getResource("/images/image01.jpg")
 				.toString());
 		Image finalImage = LatentImage.from(image).transform(Color::brighter)
 				.transform(Color::grayscale).toImage();
+
+		ImageUtil.assertEquals("/fixture/images/ch03.ex12.png", finalImage);
+	}
+
+	@Test
+	public void testLatentImage_with_ColorTransformer() {
+		Image image = new Image(getClass().getResource("/images/image01.jpg")
+				.toString());
+		Image finalImage = LatentImage.from(image).transform((x, y, c) -> {
+			return c.brighter();
+		}).transform((x, y, c) -> {
+			return c.grayscale();
+		}).toImage();
 
 		ImageUtil.assertEquals("/fixture/images/ch03.ex12.png", finalImage);
 	}
