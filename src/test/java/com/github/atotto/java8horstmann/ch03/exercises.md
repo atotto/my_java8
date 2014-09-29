@@ -76,3 +76,7 @@ skip
 
 `LatentImage`を拡張して`UnaryOperator<Color>`と`ColorTransformer`を受け付けるように。
 
+## ex13
+
+3x3のサイズで畳み込みする。
+LaplacianフィルタとMeanフィルタ。
