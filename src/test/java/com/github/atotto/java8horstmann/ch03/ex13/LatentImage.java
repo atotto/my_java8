@@ -40,7 +40,6 @@ public class LatentImage {
 		int width = (int) in.getWidth();
 		int height = (int) in.getHeight();
 		WritableImage out = new WritableImage(width - 2, height - 2);
-
 		for (int x = 0; x < width - 2; x++) {
 			for (int y = 0; y < height - 2; y++) {
 				double[][] mat_r = new double[3][3];

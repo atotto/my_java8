@@ -19,13 +19,12 @@ public class LatentImageTest {
 	public void testLatentImage_with_3x3_LaplacianFilter() {
 		Image image = new Image(getClass().getResource("/images/image01.jpg")
 				.toString());
-		Image finalImage = LatentImage
-				.from(image)
-				.filter((mat) -> {
-					double c = mat[1][1] * 4 - mat[1][0] - mat[0][1]
-							- mat[1][2] - mat[2][1];
-					return c;
-				}).toImage();
+		ConvolutionFilter laplacian = (mat) -> {
+			double c = mat[1][1] * 4 - mat[1][0] - mat[0][1] - mat[1][2]
+					- mat[2][1];
+			return c;
+		};
+		Image finalImage = LatentImage.from(image).filter(laplacian).toImage();
 
 		ImageUtil.assertEquals(
 				"/fixture/images/ch03.convolution_laplacianFilter.png",
@@ -36,7 +35,7 @@ public class LatentImageTest {
 	public void testLatentImage_with_3x3_MeanFilter() {
 		Image image = new Image(getClass().getResource("/images/image01.jpg")
 				.toString());
-		Image finalImage = LatentImage.from(image).filter((mat) -> {
+		ConvolutionFilter mean = (mat) -> {
 			double c = 0.0;
 			for (double[] line : mat) {
 				for (double p : line) {
@@ -44,7 +43,8 @@ public class LatentImageTest {
 				}
 			}
 			return c / 9.0;
-		}).toImage();
+		};
+		Image finalImage = LatentImage.from(image).filter(mean).toImage();
 
 		ImageUtil.assertEquals(
 				"/fixture/images/ch03.convolution_meanFilter.png", finalImage);
