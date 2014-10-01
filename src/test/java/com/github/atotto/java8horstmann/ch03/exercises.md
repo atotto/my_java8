@@ -133,3 +133,6 @@ secondでfirstのexceptionを処理する。
 	}
 ```
 
+## ex17
+
+`doInParallelAsync(Runnable first, Runnable second, Consumer<Throwable> handler)`を実装する。
