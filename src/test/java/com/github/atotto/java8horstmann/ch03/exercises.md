@@ -80,3 +80,56 @@ skip
 
 3x3のサイズで畳み込みする。
 LaplacianフィルタとMeanフィルタ。
+
+## ex14
+
+skip
+
+## ex15
+
+skip
+
+## ex16
+
+firstがresultをsupplyし、secondがconsumeする。
+handlerでexpectionを処理する。
+
+```java
+	public static <T> void doInOrderAsync(Supplier<T> first,
+			Consumer<T> second, Consumer<Throwable> handler) {
+		Thread t = new Thread() {
+			public void run() {
+				try {
+					T result = first.get();
+					second.accept(result);
+				} catch (Throwable t) {
+					handler.accept(t);
+				}
+			}
+		};
+		t.start();
+	}
+```
+
+`BiConsumer<T, Throwable>`で書きなおす。
+
+firstでsupplyし、secondでconsumeする。
+secondでfirstのexceptionを処理する。
+
+```java
+	public static <T> void doInOrderAsync(Supplier<T> first,
+			BiConsumer<T, Throwable> second) {
+		Thread t = new Thread() {
+			public void run() {
+				try {
+					T result = first.get();
+					second.accept(result, null);
+				} catch (Throwable t) {
+					second.accept(null, t);
+				}
+			}
+		};
+		t.start();
+	}
+```
+
