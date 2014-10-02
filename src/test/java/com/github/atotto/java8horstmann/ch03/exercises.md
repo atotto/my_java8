@@ -172,3 +172,10 @@ interface BiCallable<T, R> {
 
 のような関数型インターフェースが必要になる。が、存在しない？
 
+## ex19
+
+[`Stream<T>`](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html)
+の
+[`<U> U reduce(U identity, BiFunction<U,? super T,U> accumulator, BinaryOperator<U> combiner)`](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#reduce-U-java.util.function.BiFunction-java.util.function.BinaryOperator-)
+
+skip
