@@ -136,3 +136,39 @@ secondでfirstのexceptionを処理する。
 ## ex17
 
 `doInParallelAsync(Runnable first, Runnable second, Consumer<Throwable> handler)`を実装する。
+
+## ex18
+
+```java
+	public static <T> Supplier<T> unchecked(Callable<T> f) {
+		return () -> {
+			try {
+				return f.call();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			} catch (Throwable t) {
+				throw t;
+			}
+		};
+	}
+```
+
+`Function<T, R>`を生成するようにしたバージョンを実装する。
+
+[Function<T, R>](http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html)は、1つの引数を受け取って結果を生成する関数を表す。
+
+任意の例外をスローする抽象メソッドを持つ関数型インターフェース:
+
+* [Callable<V>](http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Callable.html)
+
+これとFunction<T, R>を統合すると:
+
+```java
+@FunctionalInterface
+interface BiCallable<T, R> {
+	R call(T t) throws Exception;
+}
+```
+
+のような関数型インターフェースが必要になる。が、存在しない？
+
