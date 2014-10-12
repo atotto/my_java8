@@ -179,3 +179,11 @@ interface BiCallable<T, R> {
 [`<U> U reduce(U identity, BiFunction<U,? super T,U> accumulator, BinaryOperator<U> combiner)`](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#reduce-U-java.util.function.BiFunction-java.util.function.BinaryOperator-)
 
 skip
+
+## ex20
+
+`static <T, U> List<U> map(List<T> list, Function<T, U> function)`を実装する。
+
+`List<T>`の`list`を`function`で`List<U>`へ変換する。
+
+* [Collectors](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html)
