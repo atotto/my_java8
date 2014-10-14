@@ -187,3 +187,9 @@ skip
 `List<T>`の`list`を`function`で`List<U>`へ変換する。
 
 * [Collectors](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html)
+
+## ex21
+
+`static <T, U> Future<U> map(Future<T> future, Function<T, U> function)`を実装する。
+
+* [Future](http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html)は6章参照。
