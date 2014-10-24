@@ -25,6 +25,8 @@ public class AndThenTest {
 		Thread th = new Thread(andThen(() -> doWork(), () -> doWork()));
 		th.start();
 		th.join();
+
+		// TODO: run order testing
 		assertThat(count, is(2));
 	}
 }
