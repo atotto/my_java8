@@ -35,4 +35,14 @@ public class ZipTest {
 
 		assertThat(message, is("stream"));
 	}
+
+	@Test
+	public void testInfinity() throws Exception {
+		Stream<Double> st1 = Stream.of(1.2, 3.0, 5.0);
+		Stream<Double> st2 = Stream.generate(Math::random);
+
+		Stream<Double> zipped = zip(st1, st2);
+
+		assertThat(zipped.count(), is(6L));
+	}
 }
