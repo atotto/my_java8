@@ -14,10 +14,10 @@ public class SortTest {
 	public void testComparator() throws Exception {
 		String[] strings = "aaaa a aaa aa".split(" ");
 
-		String expect = Thread.currentThread().getName();
+		Thread expect = Thread.currentThread();
 
 		Arrays.sort(strings, (first, second) -> {
-			String actual = Thread.currentThread().getName();
+			Thread actual = Thread.currentThread();
 			assertThat(actual, is(expect));
 
 			return Integer.compare(first.length(), second.length());
@@ -26,10 +26,10 @@ public class SortTest {
 
 	@Test
 	public void testRunnable() throws Exception {
-		String expect = Thread.currentThread().getName();
+		Thread expect = Thread.currentThread();
 
 		Runnable runner = () -> {
-			String actual = Thread.currentThread().getName();
+			Thread actual = Thread.currentThread();
 			assertThat(actual, is(not(expect)));
 		};
 
