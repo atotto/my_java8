@@ -34,6 +34,24 @@
           <excludedGroups>org.loadui.testfx.GuiTest</excludedGroups>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.14</version>
+        <configuration>
+          <groups>org.loadui.testfx.GuiTest</groups>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
