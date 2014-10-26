@@ -26,6 +26,14 @@
           <enableAssertions>true</enableAssertions>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.17</version>
+        <configuration>
+          <excludedGroups>org.loadui.testfx.GuiTest</excludedGroups>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
@@ -40,6 +48,13 @@
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-all</artifactId>
       <version>1.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.loadui</groupId>
+      <artifactId>testFx</artifactId>
+      <version>3.1.2</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
