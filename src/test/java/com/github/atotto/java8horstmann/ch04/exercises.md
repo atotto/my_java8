@@ -71,3 +71,11 @@ larger.disableProperty().bind(observe(t -> t >= 100, gauge.widthProperty()));
 cssを用いずに、境界を設定する
 
 GridPaneDemoの通り？
+
+## ex08
+
+FXMLで
+
+skip
+
+
