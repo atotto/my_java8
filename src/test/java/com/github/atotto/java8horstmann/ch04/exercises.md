@@ -48,3 +48,20 @@ For example:
 ```java
 larger.disableProperty().bind(observe(t -> t >= 100, gauge.widthProperty()));
 ```
+
+## ex06
+
+```java
+	public void start(Stage stage) {
+		BorderPane pane = new BorderPane();
+		pane.setTop(new Button("Top"));
+		pane.setLeft(new Button("Left"));
+		pane.setCenter(new Button("Center"));
+		pane.setRight(new Button("Right"));
+		pane.setBottom(new Button("Bottom"));
+		stage.setScene(new Scene(pane));
+		stage.show();
+	}
+```
+
+のTopとBottomを中心に持ってくる
