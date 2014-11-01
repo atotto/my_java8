@@ -65,3 +65,9 @@ larger.disableProperty().bind(observe(t -> t >= 100, gauge.widthProperty()));
 ```
 
 のTopとBottomを中心に持ってくる
+
+## ex07
+
+cssを用いずに、境界を設定する
+
+GridPaneDemoの通り？
