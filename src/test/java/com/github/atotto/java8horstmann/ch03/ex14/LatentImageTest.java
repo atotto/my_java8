@@ -1,5 +1,6 @@
-package com.github.atotto.java8horstmann.ch03.ex13;
+package com.github.atotto.java8horstmann.ch03.ex14;
 
+import static com.github.atotto.java8horstmann.ch03.ex13.LatentImageTest.fitColorRange;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
@@ -20,13 +21,14 @@ public class LatentImageTest {
 	public void testLatentImage_with_3x3_LaplacianFilter() {
 		Image image = new Image(getClass().getResource("/images/image01.jpg")
 				.toString());
-		ConvolutionFilter laplacian = (mat) -> {
-			double c = mat[1][1].getBrightness() * 4
-					- mat[1][0].getBrightness() - mat[0][1].getBrightness()
-					- mat[1][2].getBrightness() - mat[2][1].getBrightness();
+		ImageFilter laplacian = (x, y, reader) -> {
+			double c = reader.getColor(x + 1, y + 1).getBrightness() * 4
+					- reader.getColor(x + 1, y).getBrightness()
+					- reader.getColor(x, y + 1).getBrightness()
+					- reader.getColor(x + 1, y + 2).getBrightness()
+					- reader.getColor(x + 2, y + 1).getBrightness();
 			return Color.gray(fitColorRange(c));
 		};
-
 		Image finalImage = LatentImage.from(image).filter(laplacian).toImage();
 
 		ImageUtil.assertEquals(
@@ -34,29 +36,20 @@ public class LatentImageTest {
 				finalImage);
 	}
 
-	public static double fitColorRange(double c) {
-		if (c < 0.0) {
-			return 0.0;
-		}
-		if (c > 1.0) {
-			return 1.0;
-		}
-		return c;
-	}
-
 	@Test
 	public void testLatentImage_with_3x3_MeanFilter() {
 		Image image = new Image(getClass().getResource("/images/image01.jpg")
 				.toString());
-		ConvolutionFilter mean = (mat) -> {
+		ImageFilter mean = (x, y, reader) -> {
 			double r = 0.0;
 			double g = 0.0;
 			double b = 0.0;
-			for (Color[] line : mat) {
-				for (Color p : line) {
-					r += p.getRed();
-					g += p.getGreen();
-					b += p.getBlue();
+			for (int m = y; m < y + 3; m++) {
+				for (int n = x; n < x + 3; n++) {
+					Color c = reader.getColor(n, m);
+					r += c.getRed();
+					g += c.getGreen();
+					b += c.getBlue();
 				}
 			}
 			return Color.color(r / 9.0, g / 9.0, b / 9.0);
