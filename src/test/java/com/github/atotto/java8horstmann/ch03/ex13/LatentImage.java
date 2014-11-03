@@ -42,36 +42,18 @@ public class LatentImage {
 		WritableImage out = new WritableImage(width - 2, height - 2);
 		for (int x = 0; x < width - 2; x++) {
 			for (int y = 0; y < height - 2; y++) {
-				double[][] mat_r = new double[3][3];
-				double[][] mat_g = new double[3][3];
-				double[][] mat_b = new double[3][3];
+				Color[][] mat = new Color[3][3];
 				for (int m = 0; m < 3; m++) {
 					for (int n = 0; n < 3; n++) {
-						Color c = in.getPixelReader().getColor(x + m, y + n);
-						mat_r[m][n] = c.getRed();
-						mat_g[m][n] = c.getGreen();
-						mat_b[m][n] = c.getBlue();
+						mat[m][n] = in.getPixelReader().getColor(x + m, y + n);
 					}
 				}
-				double r = fitColorRange(f.apply(mat_r));
-				double g = fitColorRange(f.apply(mat_g));
-				double b = fitColorRange(f.apply(mat_b));
-				Color c = Color.color(r, g, b);
+				Color c = f.apply(mat);
 				out.getPixelWriter().setColor(x, y, c);
 			}
 		}
 		this.in = out;
 		return this;
-	}
-
-	private double fitColorRange(double c) {
-		if (c < 0.0) {
-			return 0.0;
-		}
-		if (c > 1.0) {
-			return 1.0;
-		}
-		return c;
 	}
 
 	public Image toImage() {

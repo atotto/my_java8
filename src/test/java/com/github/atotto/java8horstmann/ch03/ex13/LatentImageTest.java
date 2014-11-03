@@ -1,6 +1,7 @@
 package com.github.atotto.java8horstmann.ch03.ex13;
 
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -20,10 +21,12 @@ public class LatentImageTest {
 		Image image = new Image(getClass().getResource("/images/image01.jpg")
 				.toString());
 		ConvolutionFilter laplacian = (mat) -> {
-			double c = mat[1][1] * 4 - mat[1][0] - mat[0][1] - mat[1][2]
-					- mat[2][1];
-			return c;
+			double c = mat[1][1].getBrightness() * 4
+					- mat[1][0].getBrightness() - mat[0][1].getBrightness()
+					- mat[1][2].getBrightness() - mat[2][1].getBrightness();
+			return Color.gray(fitColorRange(c));
 		};
+
 		Image finalImage = LatentImage.from(image).filter(laplacian).toImage();
 
 		ImageUtil.assertEquals(
@@ -31,18 +34,32 @@ public class LatentImageTest {
 				finalImage);
 	}
 
+	private double fitColorRange(double c) {
+		if (c < 0.0) {
+			return 0.0;
+		}
+		if (c > 1.0) {
+			return 1.0;
+		}
+		return c;
+	}
+
 	@Test
 	public void testLatentImage_with_3x3_MeanFilter() {
 		Image image = new Image(getClass().getResource("/images/image01.jpg")
 				.toString());
 		ConvolutionFilter mean = (mat) -> {
-			double c = 0.0;
-			for (double[] line : mat) {
-				for (double p : line) {
-					c += p;
+			double r = 0.0;
+			double g = 0.0;
+			double b = 0.0;
+			for (Color[] line : mat) {
+				for (Color p : line) {
+					r += p.getRed();
+					g += p.getGreen();
+					b += p.getBlue();
 				}
 			}
-			return c / 9.0;
+			return Color.color(r / 9.0, g / 9.0, b / 9.0);
 		};
 		Image finalImage = LatentImage.from(image).filter(mean).toImage();
 
