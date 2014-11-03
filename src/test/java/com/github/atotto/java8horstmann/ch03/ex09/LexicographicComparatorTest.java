@@ -26,7 +26,7 @@ public class LexicographicComparatorTest {
 					}
 				}
 			} catch (NoSuchFieldException | IllegalAccessException e) {
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 			return res;
 		};
