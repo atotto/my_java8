@@ -64,7 +64,21 @@ UnaryOperator<Color>をColorTransformerで書きなおす。
 
 ## ex10
 
-skip
+```java
+UnaryOperator op = Color::brighter;
+Image finalImage = transform(image, op.compose(Color::grayscale));
+```
+
+```java
+default <V> Function<V,R> compose(Function<? super V,? extends T> before)
+```
+
+* structural type: 名前が異なっていても構造が同じであれば同じ型であるとみなす
+* nominal type: 名前が同じであれば同じ型であるとみなす
+
+composeで`Function<Color,Color>`が戻り値となる。
+transformは`UnaryOperator<Color>`を受けるようになっているため、これを受け付けることができない。
+構造を考えると同じであるため、ストラクチャル型であれば受け付けられるが、Javaはノミナル型であるため、これを受け付けられない。
 
 ## ex11
 
