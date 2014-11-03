@@ -29,7 +29,8 @@ public class LatentImageTest {
 					- reader.getColor(x + 2, y + 1).getBrightness();
 			return Color.gray(fitColorRange(c));
 		};
-		Image finalImage = LatentImage.from(image).filter(laplacian).toImage();
+		Image finalImage = LatentImage.from(image).filter3x3(laplacian)
+				.toImage();
 
 		ImageUtil.assertEquals(
 				"/fixture/images/ch03.convolution_laplacianFilter.png",
@@ -54,9 +55,22 @@ public class LatentImageTest {
 			}
 			return Color.color(r / 9.0, g / 9.0, b / 9.0);
 		};
-		Image finalImage = LatentImage.from(image).filter(mean).toImage();
+		Image finalImage = LatentImage.from(image).filter3x3(mean).toImage();
 
 		ImageUtil.assertEquals(
 				"/fixture/images/ch03.convolution_meanFilter.png", finalImage);
+	}
+
+	@Test
+	public void testLatentImage_with_mirroringFilter() {
+		Image image = new Image(getClass().getResource("/images/image01.jpg")
+				.toString());
+		int width = (int) image.getWidth();
+		ImageFilter mirroring = (x, y, reader) -> reader.getColor(
+				width - x - 1, y);
+		Image finalImage = LatentImage.from(image).filter(mirroring).toImage();
+
+		ImageUtil.assertEquals("/fixture/images/ch03.mirroringFilter.png",
+				finalImage);
 	}
 }
