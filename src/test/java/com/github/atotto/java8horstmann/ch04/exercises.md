@@ -83,3 +83,10 @@ skip
 楕円軌道をまわるアニメーションを作る。
 
 * PathTransitionを使う
+
+## ex10
+
+WebViewerを使って、以下の機能を持つブラウザを実装する:
+
+* URL bar
+* back button (WebEngine.getHistory())
