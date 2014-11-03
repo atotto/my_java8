@@ -21,7 +21,7 @@ public class LatentImageTest {
 	public void testLatentImage_with_3x3_LaplacianFilter() {
 		Image image = new Image(getClass().getResource("/images/image01.jpg")
 				.toString());
-		ImageFilter laplacian = (x, y, reader) -> {
+		ColorTransformer laplacian = (x, y, reader) -> {
 			double c = reader.getColor(x + 1, y + 1).getBrightness() * 4
 					- reader.getColor(x + 1, y).getBrightness()
 					- reader.getColor(x, y + 1).getBrightness()
@@ -41,7 +41,7 @@ public class LatentImageTest {
 	public void testLatentImage_with_3x3_MeanFilter() {
 		Image image = new Image(getClass().getResource("/images/image01.jpg")
 				.toString());
-		ImageFilter mean = (x, y, reader) -> {
+		ColorTransformer mean = (x, y, reader) -> {
 			double r = 0.0;
 			double g = 0.0;
 			double b = 0.0;
@@ -66,7 +66,7 @@ public class LatentImageTest {
 		Image image = new Image(getClass().getResource("/images/image01.jpg")
 				.toString());
 		int width = (int) image.getWidth();
-		ImageFilter mirroring = (x, y, reader) -> reader.getColor(
+		ColorTransformer mirroring = (x, y, reader) -> reader.getColor(
 				width - x - 1, y);
 		Image finalImage = LatentImage.from(image).filter(mirroring).toImage();
 

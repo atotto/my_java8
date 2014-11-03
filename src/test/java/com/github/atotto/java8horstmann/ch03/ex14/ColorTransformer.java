@@ -4,6 +4,6 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 
 @FunctionalInterface
-public interface ImageFilter {
+public interface ColorTransformer {
 	Color apply(int x, int y, PixelReader reader);
 }
