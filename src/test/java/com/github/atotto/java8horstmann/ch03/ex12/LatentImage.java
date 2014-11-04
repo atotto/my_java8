@@ -22,9 +22,7 @@ public class LatentImage {
 	}
 
 	LatentImage transform(UnaryOperator<Color> f) {
-		pendingOperations.add((x, y, c) -> {
-			return f.apply(c);
-		});
+		pendingOperations.add((x, y, c) -> f.apply(c));
 		return this;
 	}
 

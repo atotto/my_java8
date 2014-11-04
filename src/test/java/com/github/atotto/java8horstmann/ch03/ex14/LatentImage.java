@@ -21,9 +21,7 @@ public class LatentImage {
 	}
 
 	LatentImage transform(UnaryOperator<Color> f) {
-		pendingOperations.add((x, y, reader) -> {
-			return f.apply(reader.getColor(x, y));
-		});
+		pendingOperations.add((x, y, reader) -> f.apply(reader.getColor(x, y)));
 		return this;
 	}
 
