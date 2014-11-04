@@ -66,11 +66,46 @@ public class LatentImageTest {
 		Image image = new Image(getClass().getResource("/images/image01.jpg")
 				.toString());
 		int width = (int) image.getWidth();
-		ColorTransformer mirroring = (x, y, reader) -> reader.getColor(
-				width - x - 1, y);
+		ColorTransformer mirroring = (x, y, reader) -> reader.getColor(width
+				- x - 1, y);
 		Image finalImage = LatentImage.from(image).filter(mirroring).toImage();
 
 		ImageUtil.assertEquals("/fixture/images/ch03.mirroringFilter.png",
 				finalImage);
+	}
+
+	@Test
+	public void testLatentImage_with_UnaryOperatorColor() {
+		Image image = new Image(getClass().getResource("/images/image01.jpg")
+				.toString());
+		Image finalImage = LatentImage.from(image).transform(Color::brighter)
+				.transform(Color::grayscale).toImage();
+
+		// ImageUtil.assertEquals("/fixture/images/ch03.ex12.png", finalImage);
+		ImageUtil.assertEquals("/fixture/images/ch03.ex14.png", finalImage);
+	}
+
+	@Test
+	public void testLatentImage_with_ColorTransformer() {
+		Image image = new Image(getClass().getResource("/images/image01.jpg")
+				.toString());
+		Image finalImage = LatentImage.from(image)
+				.transform((x, y, reader) -> {
+					return reader.getColor(x, y).brighter();
+				}).transform((x, y, reader) -> {
+					return reader.getColor(x, y).grayscale();
+				}).toImage();
+
+		// ImageUtil.assertEquals("/fixture/images/ch03.ex12.png", finalImage);
+		ImageUtil.assertEquals("/fixture/images/ch03.ex14.png", finalImage);
+	}
+
+	@Test
+	public void testLatentImage_toImage() {
+		Image image = new Image(getClass().getResource("/images/image01.jpg")
+				.toString());
+		Image finalImage = LatentImage.from(image).toImage();
+
+		ImageUtil.assertEquals("/images/image01.jpg", finalImage);
 	}
 }

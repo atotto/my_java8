@@ -52,9 +52,9 @@ public class LatentImage {
 		this.pendingOperations.clear();
 
 		WritableImage out = new WritableImage(width, height);
+		PixelReader reader = in.getPixelReader();
 		for (int x = start_x; x < width; x++) {
 			for (int y = start_y; y < height; y++) {
-				PixelReader reader = in.getPixelReader();
 				Color c = f.apply(x, y, reader);
 				out.getPixelWriter().setColor(x, y, c);
 			}
@@ -66,16 +66,18 @@ public class LatentImage {
 	public Image toImage() {
 		int width = (int) in.getWidth();
 		int height = (int) in.getHeight();
-		WritableImage out = new WritableImage(width, height);
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				PixelReader reader = in.getPixelReader();
-				Color c = reader.getColor(x, y);
-				for (ColorTransformer f : pendingOperations) {
-					c = f.apply(x, y, reader);
+		WritableImage out = new WritableImage(in.getPixelReader(), width,
+				height);
+		PixelReader reader = in.getPixelReader();
+		for (ColorTransformer f : pendingOperations) {
+			for (int x = 0; x < width; x++) {
+				for (int y = 0; y < height; y++) {
+					Color c = f.apply(x, y, reader);
+					out.getPixelWriter().setColor(x, y, c);
 				}
-				out.getPixelWriter().setColor(x, y, c);
 			}
+			out = new WritableImage(out.getPixelReader(), width, height);
+			reader = out.getPixelReader();
 		}
 		return out;
 	}
