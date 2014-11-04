@@ -38,4 +38,13 @@ public class LatentImageTest {
 
 		ImageUtil.assertEquals("/fixture/images/ch03.ex12.png", finalImage);
 	}
+
+	@Test
+	public void testLatentImage_toImage() {
+		Image image = new Image(getClass().getResource("/images/image01.jpg")
+				.toString());
+		Image finalImage = LatentImage.from(image).toImage();
+
+		ImageUtil.assertEquals("/images/image01.jpg", finalImage);
+	}
 }
