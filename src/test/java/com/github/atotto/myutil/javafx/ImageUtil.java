@@ -76,8 +76,9 @@ public class ImageUtil {
 			for (int y = 0; y < height; y++) {
 				Color actualColor = actual.getPixelReader().getColor(x, y);
 				Color expectedColor = expected.getPixelReader().getColor(x, y);
-				assertThat("Image color is not equal", actualColor,
-						is(expectedColor));
+				assertThat(String.format(
+						"Image color(x,y)=(%d,%d) is not equal", x, y),
+						actualColor, is(expectedColor));
 			}
 		}
 	}
