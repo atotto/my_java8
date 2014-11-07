@@ -62,7 +62,6 @@ public class LatentImageTest {
 			return Color.color(r / 9.0, g / 9.0, b / 9.0);
 		};
 		Image finalImage = LatentImage.from(image).filter(mean).toImage();
-
 		ImageUtil.assertEquals(
 				"/fixture/images/ch03.convolution_meanFilter.png", finalImage);
 	}
