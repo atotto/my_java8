@@ -31,30 +31,7 @@ public class LatentImage {
 	}
 
 	LatentImage filter(ColorTransformer f) {
-		int width = (int) in.getWidth();
-		int height = (int) in.getHeight();
-
-		return filter(f, 0, 0, width, height);
-	}
-
-	LatentImage filter(ColorTransformer f, int start_x, int start_y, int width,
-			int height) {
-		this.in = this.toImage();
-		this.pendingOperations.clear();
-
-		WritableImage out = new WritableImage(width, height);
-		PixelReader reader = in.getPixelReader();
-		for (int x = start_x; x < width; x++) {
-			for (int y = start_y; y < height; y++) {
-				try {
-					Color c = f.apply(x, y, reader);
-					out.getPixelWriter().setColor(x, y, c);
-				} catch (IndexOutOfBoundsException e) {
-					continue;
-				}
-			}
-		}
-		this.in = out;
+		pendingOperations.add(f);
 		return this;
 	}
 
@@ -73,8 +50,12 @@ public class LatentImage {
 		}
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				Color c = reader.getColor(x, y);
-				out.getPixelWriter().setColor(x, y, c);
+				try {
+					Color c = reader.getColor(x, y);
+					out.getPixelWriter().setColor(x, y, c);
+				} catch (IndexOutOfBoundsException e) {
+					out.getPixelWriter().setColor(x, y, Color.TRANSPARENT);
+				}
 			}
 		}
 		return out;
