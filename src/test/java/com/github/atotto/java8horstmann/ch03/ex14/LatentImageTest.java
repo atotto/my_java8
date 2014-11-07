@@ -29,8 +29,7 @@ public class LatentImageTest {
 					- reader.getColor(x + 2, y + 1).getBrightness();
 			return Color.gray(fitColorRange(c));
 		};
-		Image finalImage = LatentImage.from(image).filter3x3(laplacian)
-				.toImage();
+		Image finalImage = LatentImage.from(image).filter(laplacian).toImage();
 
 		ImageUtil.assertEquals(
 				"/fixture/images/ch03.convolution_laplacianFilter.png",
@@ -55,7 +54,7 @@ public class LatentImageTest {
 			}
 			return Color.color(r / 9.0, g / 9.0, b / 9.0);
 		};
-		Image finalImage = LatentImage.from(image).filter3x3(mean).toImage();
+		Image finalImage = LatentImage.from(image).filter(mean).toImage();
 
 		ImageUtil.assertEquals(
 				"/fixture/images/ch03.convolution_meanFilter.png", finalImage);
@@ -81,8 +80,8 @@ public class LatentImageTest {
 		Image finalImage = LatentImage.from(image).transform(Color::brighter)
 				.transform(Color::grayscale).toImage();
 
-		// ImageUtil.assertEquals("/fixture/images/ch03.ex12.png", finalImage);
-		ImageUtil.assertEquals("/fixture/images/ch03.ex14.png", finalImage);
+		ImageUtil.assertEquals("/fixture/images/ch03.ex12.png", finalImage);
+		// ImageUtil.assertEquals("/fixture/images/ch03.ex14.png", finalImage);
 	}
 
 	@Test
@@ -96,8 +95,8 @@ public class LatentImageTest {
 					return reader.getColor(x, y).grayscale();
 				}).toImage();
 
-		// ImageUtil.assertEquals("/fixture/images/ch03.ex12.png", finalImage);
-		ImageUtil.assertEquals("/fixture/images/ch03.ex14.png", finalImage);
+		ImageUtil.assertEquals("/fixture/images/ch03.ex12.png", finalImage);
+		// ImageUtil.assertEquals("/fixture/images/ch03.ex14.png", finalImage);
 	}
 
 	@Test

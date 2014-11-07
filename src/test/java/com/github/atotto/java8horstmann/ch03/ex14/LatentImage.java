@@ -37,13 +37,6 @@ public class LatentImage {
 		return filter(f, 0, 0, width, height);
 	}
 
-	LatentImage filter3x3(ColorTransformer f) {
-		int width = (int) in.getWidth();
-		int height = (int) in.getHeight();
-
-		return filter(f, 0, 0, width - 2, height - 2);
-	}
-
 	LatentImage filter(ColorTransformer f, int start_x, int start_y, int width,
 			int height) {
 		this.in = this.toImage();
@@ -53,8 +46,12 @@ public class LatentImage {
 		PixelReader reader = in.getPixelReader();
 		for (int x = start_x; x < width; x++) {
 			for (int y = start_y; y < height; y++) {
-				Color c = f.apply(x, y, reader);
-				out.getPixelWriter().setColor(x, y, c);
+				try {
+					Color c = f.apply(x, y, reader);
+					out.getPixelWriter().setColor(x, y, c);
+				} catch (IndexOutOfBoundsException e) {
+					continue;
+				}
 			}
 		}
 		this.in = out;
@@ -66,16 +63,19 @@ public class LatentImage {
 		int height = (int) in.getHeight();
 		WritableImage out = new WritableImage(in.getPixelReader(), width,
 				height);
+
+		List<LazyImage> cache = new ArrayList<>(); // TODO: WeakReference
 		PixelReader reader = in.getPixelReader();
 		for (ColorTransformer f : pendingOperations) {
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++) {
-					Color c = f.apply(x, y, reader);
-					out.getPixelWriter().setColor(x, y, c);
-				}
+			LazyImage image = new LazyImage(reader, width, height, f);
+			cache.add(image);
+			reader = image.getPixelReader();
+		}
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				Color c = reader.getColor(x, y);
+				out.getPixelWriter().setColor(x, y, c);
 			}
-			out = new WritableImage(out.getPixelReader(), width, height);
-			reader = out.getPixelReader();
 		}
 		return out;
 	}
