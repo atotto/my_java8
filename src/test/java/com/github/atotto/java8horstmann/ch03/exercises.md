@@ -105,7 +105,9 @@ LaplacianフィルタとMeanフィルタ。
 
 ## ex15
 
-skip
+遅延評価と並列評価を組み合わせる。
+
+toImageを並列化する。
 
 ## ex16
 
