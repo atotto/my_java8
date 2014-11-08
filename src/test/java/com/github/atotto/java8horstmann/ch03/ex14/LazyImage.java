@@ -3,6 +3,7 @@ package com.github.atotto.java8horstmann.ch03.ex14;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javafx.scene.image.PixelFormat;
@@ -13,14 +14,18 @@ import javafx.scene.paint.Color;
 
 public class LazyImage {
 	private WritableImage image;
+	private final int width, height;
+	private final int pixelNum;
+
+	private boolean evaluated = false;
+
 	private final ColorTransformer f;
-	private boolean[][] evaluatedPixels;
+	private Boolean[] evaluatedPixels;
 
 	private PixelReader inReader;
 	private PixelReader reader;
 
 	private AtomicLong evaluatedPixelCount = new AtomicLong();
-	private final long allPixelNum;
 
 	/**
 	 * 
@@ -42,21 +47,27 @@ public class LazyImage {
 			throw new IllegalArgumentException(
 					"Image dimensions must be positive (w,h > 0)");
 		}
+		this.width = width;
+		this.height = height;
+		this.pixelNum = width * height;
 
 		this.inReader = reader;
-		this.allPixelNum = width * height;
 
 		this.f = f;
 		this.image = new WritableImage(width, height);
-		this.evaluatedPixels = new boolean[width][height];
+		this.evaluatedPixels = new Boolean[pixelNum];
+		Arrays.fill(evaluatedPixels, false);
 	}
 
 	public boolean isEvaluated() {
-		return evaluatedPixelCount.get() == allPixelNum;
+		if (evaluated == false) {
+			evaluated = evaluatedPixelCount.get() == pixelNum;
+		}
+		return evaluated;
 	}
 
 	public double evaluateRate() {
-		return evaluatedPixelCount.get() / allPixelNum;
+		return evaluatedPixelCount.get() / pixelNum;
 	}
 
 	public final PixelReader getPixelReader() {
@@ -64,16 +75,19 @@ public class LazyImage {
 			reader = new PixelReader() {
 				@Override
 				public Color getColor(int x, int y) {
-					synchronized (image) {
-						if (evaluatedPixels[x][y]) {
+					if (x < 0 || y < 0 || x >= width || y >= height) {
+						throw new IndexOutOfBoundsException("(x,y)=" + x + y);
+					}
+					synchronized (evaluatedPixels[x + y * width]) {
+						if (evaluatedPixels[x + y * width]) {
 							return image.getPixelReader().getColor(x, y);
 						}
 						evaluatedPixelCount.incrementAndGet();
-						evaluatedPixels[x][y] = true;
+						evaluatedPixels[x + y * width] = true;
+						Color c = f.apply(x, y, inReader);
+						image.getPixelWriter().setColor(x, y, c);
+						return c;
 					}
-					Color c = f.apply(x, y, inReader);
-					image.getPixelWriter().setColor(x, y, c);
-					return c;
 				}
 
 				@Override

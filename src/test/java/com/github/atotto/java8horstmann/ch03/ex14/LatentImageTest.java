@@ -81,7 +81,6 @@ public class LatentImageTest {
 				.transform(Color::grayscale).toImage();
 
 		ImageUtil.assertEquals("/fixture/images/ch03.ex12.png", finalImage);
-		// ImageUtil.assertEquals("/fixture/images/ch03.ex14.png", finalImage);
 	}
 
 	@Test
@@ -96,7 +95,6 @@ public class LatentImageTest {
 				}).toImage();
 
 		ImageUtil.assertEquals("/fixture/images/ch03.ex12.png", finalImage);
-		// ImageUtil.assertEquals("/fixture/images/ch03.ex14.png", finalImage);
 	}
 
 	@Test

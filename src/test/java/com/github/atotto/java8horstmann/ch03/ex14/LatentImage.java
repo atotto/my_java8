@@ -41,11 +41,9 @@ public class LatentImage {
 		WritableImage out = new WritableImage(in.getPixelReader(), width,
 				height);
 
-		List<LazyImage> cache = new ArrayList<>(); // TODO: WeakReference
 		PixelReader reader = in.getPixelReader();
 		for (ColorTransformer f : pendingOperations) {
 			LazyImage image = new LazyImage(reader, width, height, f);
-			cache.add(image);
 			reader = image.getPixelReader();
 		}
 		for (int x = 0; x < width; x++) {
