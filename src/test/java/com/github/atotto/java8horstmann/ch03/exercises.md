@@ -213,3 +213,19 @@ skip
 `static <T, U> Future<U> map(Future<T> future, Function<T, U> function)`を実装する。
 
 * [Future](http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html)は6章参照。
+
+## ex22
+
+skip
+
+## ex23
+
+Pair<T>に対するmap操作を定義する。
+
+参考資料:
+
+* http://www.cplusplus.com/reference/utility/pair/
+
+## ex24
+
+flatMapメソッドは定義できるか。
