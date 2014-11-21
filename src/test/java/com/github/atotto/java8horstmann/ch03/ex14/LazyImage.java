@@ -8,23 +8,21 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.PixelReader;
-import javafx.scene.image.WritableImage;
 import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.paint.Color;
 
 public class LazyImage {
-	private WritableImage image;
+	private Color[] image;
+	private Object[] lock;
 	private final int width, height;
 	private final int pixelNum;
 
-	private boolean evaluated = false;
-
 	private final ColorTransformer f;
-	private Boolean[] evaluatedPixels;
 
-	private PixelReader inReader;
+	private PixelReader in;
 	private PixelReader reader;
 
+	private boolean evaluated = false;
 	private AtomicLong evaluatedPixelCount = new AtomicLong();
 
 	/**
@@ -51,12 +49,12 @@ public class LazyImage {
 		this.height = height;
 		this.pixelNum = width * height;
 
-		this.inReader = reader;
+		this.in = reader;
 
 		this.f = f;
-		this.image = new WritableImage(width, height);
-		this.evaluatedPixels = new Boolean[pixelNum];
-		Arrays.fill(evaluatedPixels, false);
+		this.image = new Color[width * height];
+		this.lock = new Object[pixelNum];
+		Arrays.fill(lock, new Object());
 	}
 
 	public boolean isEvaluated() {
@@ -78,14 +76,17 @@ public class LazyImage {
 					if (x < 0 || y < 0 || x >= width || y >= height) {
 						throw new IndexOutOfBoundsException("(x,y)=" + x + y);
 					}
-					synchronized (evaluatedPixels[x + y * width]) {
-						if (evaluatedPixels[x + y * width]) {
-							return image.getPixelReader().getColor(x, y);
+					int index = x + y * width;
+					if (image[index] != null) {
+						return image[index];
+					}
+					synchronized (lock[index]) {
+						if (image[index] != null) {
+							return image[index];
 						}
 						evaluatedPixelCount.incrementAndGet();
-						evaluatedPixels[x + y * width] = true;
-						Color c = f.apply(x, y, inReader);
-						image.getPixelWriter().setColor(x, y, c);
+						Color c = f.apply(x, y, in);
+						image[index] = c;
 						return c;
 					}
 				}
