@@ -243,7 +243,11 @@ interface BiCallable<T, R> {
 
 ## ex22
 
-skip
+[CompletableFuture](https://docs.oracle.com/javase/jp/8/api/java/util/concurrent/CompletableFuture.html)
+に対するflatMap操作はあるか。
+
+→ ない。
+
 
 ## ex23
 
