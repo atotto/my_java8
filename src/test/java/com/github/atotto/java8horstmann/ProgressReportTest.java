@@ -20,8 +20,8 @@ public class ProgressReportTest {
 		chapter.put("ch02", new C(1, 13));
 		chapter.put("ch03", new C(1, 24));
 		chapter.put("ch04", new C(1, 10));
-		// chapter.put("ch05", new C(1, 12));
-		// chapter.put("ch06", new C(1, 11));
+		chapter.put("ch05", new C(1, 12));
+		chapter.put("ch06", new C(1, 11));
 		// chapter.put("ch07", new C(1, 10));
 		// chapter.put("ch08", new C(1, 16));
 		// chapter.put("ch09", new C(1, 12));
