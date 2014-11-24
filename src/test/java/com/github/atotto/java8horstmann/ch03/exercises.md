@@ -22,7 +22,32 @@
 
 ## ex04
 
-skip
+*FilterなFunctionalInterface:
+
+```
+interface java.io.FileFilter
+	public abstract boolean java.io.FileFilter.accept(java.io.File)
+interface java.io.FilenameFilter
+	public abstract boolean java.io.FilenameFilter.accept(java.io.File,java.lang.String)
+interface java.nio.file.DirectoryStream$Filter
+	public abstract boolean java.nio.file.DirectoryStream$Filter.accept(java.lang.Object) throws java.io.IOException
+interface java.util.logging.Filter
+	public abstract boolean java.util.logging.Filter.isLoggable(java.util.logging.LogRecord)
+```
+
+上記のうち、Prediacate<T>と同じ効果を持つもの:
+
+```
+interface java.io.FileFilter
+interface java.nio.file.DirectoryStream$Filter
+interface java.util.logging.Filter
+```
+
+型を指定する以外は特に効果は無いように思う。
+
+memo:
+
+[Predicate](https://docs.oracle.com/javase/jp/8/api/java/util/function/Predicate.html) 
 
 ## ex05
 
