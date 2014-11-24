@@ -74,9 +74,7 @@ GridPaneDemoの通り？
 
 ## ex08
 
-FXMLで
-
-skip
+FXML構文でプロパティを設定する。
 
 ## ex09
 
