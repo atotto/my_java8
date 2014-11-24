@@ -1,6 +1,7 @@
 package com.github.atotto.java8horstmann.ch01.ex03;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.arrayContainingInAnyOrder;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
@@ -27,16 +28,15 @@ public class ListFIlesTest {
 	public void testListFles() {
 		String[] expect = { "a.txt", "b.txt" };
 
-		File target = new File(
-				"src/test/resources/fixture/dir/test1");
+		File target = new File("src/test/resources/fixture/dir/test1");
 
 		{
 			String[] files = listFilesWithFilter(target, "txt");
-			assertThat(files, is(expect));
+			assertThat(files, is(arrayContainingInAnyOrder(expect)));
 		}
 		{
 			String[] files = listFilesWithLambda(target, "txt");
-			assertThat(files, is(expect));
+			assertThat(files, is(arrayContainingInAnyOrder(expect)));
 		}
 	}
 }

@@ -19,6 +19,8 @@ public class UncheckExceptionTest {
 		new Thread(uncheck(() -> {
 			Thread.sleep(10000);
 		})).start();
+
+		// TODO: add exception test
 	}
 
 	@FunctionalInterface
