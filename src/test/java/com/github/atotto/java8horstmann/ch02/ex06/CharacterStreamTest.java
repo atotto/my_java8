@@ -11,7 +11,7 @@ import org.junit.Test;
 public class CharacterStreamTest {
 
 	public static Stream<Character> characterStream(String s) {
-		return IntStream.rangeClosed(0, s.length() - 1).mapToObj(s::charAt);
+		return IntStream.range(0, s.length()).mapToObj(s::charAt);
 	}
 
 	@Test
