@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ZipTest {
@@ -37,8 +38,19 @@ public class ZipTest {
 	}
 
 	@Test
-	public void testInfinity() throws Exception {
+	public void testInfinity_one() throws Exception {
 		Stream<Double> st1 = Stream.of(1.2, 3.0, 5.0);
+		Stream<Double> st2 = Stream.generate(Math::random);
+
+		Stream<Double> zipped = zip(st1, st2);
+
+		assertThat(zipped.count(), is(6L));
+	}
+
+	@Ignore("not supported yet. should implement Spliterator.")
+	@Test
+	public void testInfinity() throws Exception {
+		Stream<Double> st1 = Stream.generate(Math::random);
 		Stream<Double> st2 = Stream.generate(Math::random);
 
 		Stream<Double> zipped = zip(st1, st2);
