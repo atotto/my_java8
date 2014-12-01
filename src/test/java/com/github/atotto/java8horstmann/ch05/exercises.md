@@ -67,3 +67,7 @@ ZoneId.getAvailableIdsをストリームにして実装する。
 
 UTCから1時間以内のタイムゾーンを取得する。
 
+## ex10
+
+departure = `ZonedDateTime.of(2014, 12, 1, 15, 5, 0, 0, ZoneId.of("America/Los_Angeles"))`
+take = "10:50"
