@@ -71,3 +71,8 @@ UTCから1時間以内のタイムゾーンを取得する。
 
 departure = `ZonedDateTime.of(2014, 12, 1, 15, 5, 0, 0, ZoneId.of("America/Los_Angeles"))`
 take = "10:50"
+
+## ex11
+
+departure = `ZonedDateTime.of(2014, 12, 1, 14, 5, 0, 0, ZoneId.of("Europe/Berlin"))`
+arrival = `ZonedDateTime.of(2014, 12, 1, 16, 40, 0, 0, ZoneId.of("America/Los_Angeles"))`
