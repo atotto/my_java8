@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +36,23 @@ public class MyTimer {
 		executor.shutdown();
 	}
 
-	protected void addSchedule(ZonedDateTime tm, String title) {
+	protected void addSchedule(Schedule schedule) {
 		Duration duration = Duration.between(
-				Instant.now().atZone(ZoneId.systemDefault()), tm);
+				Instant.now().atZone(ZoneId.systemDefault()),
+				schedule.notifyTime);
 		if (duration.isNegative()) {
-			System.err.printf("schedule %s `%s` is expired. Let's skip.%n", tm,
-					title);
+			System.err
+					.printf("schedule %s is expired. Let's skip.%n", schedule);
 			return;
 		}
 
 		ScheduledFuture<?> future = executor.schedule(() -> {
-			System.out.printf("%s : %s%n", tm, title);
+			System.out.printf(
+					"\"%s\" at %s%n",
+					schedule.title,
+					schedule.zonedDateTime.toInstant()
+							.atZone(ZoneId.systemDefault())
+							.format(DateTimeFormatter.ofPattern("HH:mm")));
 		}, duration.toMillis(), TimeUnit.MILLISECONDS);
 		futures.add(future);
 	}
@@ -89,7 +96,7 @@ public class MyTimer {
 		public MyTimer build() {
 			MyTimer timer = new MyTimer();
 			for (Schedule sc : list) {
-				timer.addSchedule(sc.zonedDateTime, sc.title);
+				timer.addSchedule(sc);
 			}
 			return timer;
 		}

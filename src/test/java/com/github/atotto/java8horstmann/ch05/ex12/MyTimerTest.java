@@ -27,8 +27,10 @@ public class MyTimerTest {
 	@Test
 	public void testScheduling() throws IOException, InterruptedException,
 			ExecutionException {
-		ZonedDateTime local = Instant.now().atZone(ZoneId.systemDefault());
-		ZonedDateTime gmt = Instant.now().atZone(ZoneId.of("GMT"));
+		ZonedDateTime local = Instant.now().atZone(ZoneId.systemDefault())
+				.plusMinutes(60);
+		ZonedDateTime gmt = Instant.now().atZone(ZoneId.of("GMT"))
+				.plusMinutes(60);
 
 		MyTimer timer = new MyTimer.Builder().add(local.plusSeconds(1), "+1")
 				.add(gmt.plusSeconds(2), "+2").add(local.plusSeconds(3), "+3")
