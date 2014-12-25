@@ -44,7 +44,8 @@ public class LazyBinderTest {
 		SimpleIntegerProperty val = new SimpleIntegerProperty();
 
 		MyProperties props = new MyProperties();
-		props.disableProperty().bind(observe((t) -> t.intValue() >= 100, val));
+		props.disableProperty().bind(
+				observe((t) -> t.doubleValue() >= 100, val));
 
 		val.set(99);
 		assertThat(props.isDisable(), is(false));
@@ -63,8 +64,8 @@ public class LazyBinderTest {
 
 		MyProperties props = new MyProperties();
 		props.disableProperty().bind(
-				observe((t, u) -> t.intValue() >= 100 || u.intValue() >= 50,
-						val1, val2));
+				observe((t, u) -> t.doubleValue() >= 100
+						|| u.doubleValue() >= 50, val1, val2));
 
 		val1.set(99);
 		val2.set(49);

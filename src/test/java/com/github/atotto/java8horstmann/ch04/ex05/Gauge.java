@@ -25,9 +25,9 @@ public class Gauge extends Application {
 		smaller.setOnAction(event -> gauge.setWidth(gauge.getWidth() - 10));
 		larger.setOnAction(event -> gauge.setWidth(gauge.getWidth() + 10));
 		smaller.disableProperty().bind(
-				observe((t) -> t.intValue() <= 0, gauge.widthProperty()));
+				observe((t) -> t.doubleValue() <= 0, gauge.widthProperty()));
 		larger.disableProperty().bind(
-				observe((t) -> t.intValue() >= 100, gauge.widthProperty()));
+				observe((t) -> t.doubleValue() >= 100, gauge.widthProperty()));
 
 		HBox box = new HBox(10);
 		box.getChildren().addAll(smaller, pane, larger);
