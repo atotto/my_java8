@@ -4,6 +4,8 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -18,14 +20,26 @@ public class LexicographicComparatorTest {
 				for (String fieldName : fieldNames) {
 					Field field = obj1.getClass().getDeclaredField(fieldName);
 					field.setAccessible(true);
-					String field1 = field.get(obj1).toString();
-					String field2 = field.get(obj2).toString();
-					res = field1.compareTo(field2);
+					if (!(field.get(obj1) instanceof Comparable<?>)
+							|| !(field.get(obj2) instanceof Comparable<?>)) {
+						throw new RuntimeException(String.format(
+								"field `%s` does not implement Comparable",
+								fieldName));
+					}
+					Object o1 = field.get(obj1);
+					Object o2 = field.get(obj2);
+					Method compareTo = o1.getClass().getMethod("compareTo",
+							o2.getClass());
+					res = (int) compareTo.invoke(o1, o2);
 					if (res != 0) {
 						break;
 					}
 				}
 			} catch (NoSuchFieldException | IllegalAccessException e) {
+				throw new RuntimeException(e);
+			} catch (NoSuchMethodException | SecurityException e) {
+				throw new RuntimeException(e);
+			} catch (IllegalArgumentException | InvocationTargetException e) {
 				throw new RuntimeException(e);
 			}
 			return res;
