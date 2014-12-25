@@ -1,6 +1,7 @@
 package com.github.atotto.java8horstmann.ch04.ex09;
 
 import javafx.animation.Animation;
+import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -34,6 +35,7 @@ public class SolarSystem extends Application {
 			pathTransition.setDuration(Duration.millis(period));
 			pathTransition.setPath(path);
 			pathTransition.setNode(this);
+			pathTransition.setInterpolator(Interpolator.LINEAR);
 			pathTransition.setCycleCount(Animation.INDEFINITE);
 			pathTransition.play();
 		}
