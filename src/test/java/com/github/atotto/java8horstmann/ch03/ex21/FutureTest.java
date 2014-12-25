@@ -49,7 +49,7 @@ public class FutureTest {
 	}
 
 	@Test
-	public void exapmle_map() throws IOException, InterruptedException,
+	public void example_map() throws IOException, InterruptedException,
 			ExecutionException {
 
 		CompletableFuture<byte[]> future = CompletableFuture
