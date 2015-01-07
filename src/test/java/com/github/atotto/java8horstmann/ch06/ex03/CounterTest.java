@@ -109,4 +109,11 @@ public class CounterTest {
 		long time = b.run(N);
 		System.out.printf("BenchSynchronized\t%10d ns/op \n", time / N);
 	}
+
+	public static void main(String[] args) {
+		CounterTest test = new CounterTest();
+		test.benchAtomicLong();
+		test.benchLongAdder();
+		test.benchSynchronized();
+	}
 }
