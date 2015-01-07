@@ -17,5 +17,8 @@ target
 # OSX
 .DS_Store
 
+# log
+*.txt
+
 # for testfx
 screenshot*.png
