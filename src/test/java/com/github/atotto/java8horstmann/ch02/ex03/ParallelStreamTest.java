@@ -28,7 +28,7 @@ public class ParallelStreamTest {
 
 	@Test
 	public void benchSequentialStream() {
-
+		
 		Benchmark b = () -> {
 			words.stream().sequential().filter(w -> w.length() > 12).count();
 		};
