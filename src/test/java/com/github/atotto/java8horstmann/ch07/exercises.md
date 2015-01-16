@@ -16,4 +16,7 @@ print(b.mod(java.math.BigInteger.TEN));
 
 を実行する。
 
+## ex04
 
+JavaScriptの文字列から`getClass()`するとなにが得られるか。
+`java.lang.String.class.cast()`へ渡すとどうなるか。
