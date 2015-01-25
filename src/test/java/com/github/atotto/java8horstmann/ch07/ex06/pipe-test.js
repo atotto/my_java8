@@ -20,6 +20,9 @@ expectThrowError(function(){
 expectThrowError(function(){
 	pipe('ls');
 });
+expectThrowError(function(){
+	pipe('find . -wrong option', 'grep pipe');
+});
 
 var out = "";
 
@@ -32,3 +35,4 @@ out = pipe('find .', 'grep pipe');
 if (!contains(out, "pipe")) {
 	throw "pipe function not found";
 }
+
