@@ -1,12 +1,4 @@
-function arrayListFactory(){ 
-	var arr = new (Java.extend(java.util.ArrayList)) {
-		add: function(x){
-			print('Adding ' + x);
-			return Java.super(arr).add(x);
-		}
-	};
-	return arr;
-}
+// jjs arraylist-factory.js arraylist-factory-test.js
 
 var l1 = arrayListFactory();
 var l2 = arrayListFactory();
