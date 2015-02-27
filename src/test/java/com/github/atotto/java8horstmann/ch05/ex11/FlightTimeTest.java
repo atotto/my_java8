@@ -9,10 +9,10 @@ import java.time.ZonedDateTime;
 
 import org.junit.Test;
 
-public class FrightTimeTest {
+public class FlightTimeTest {
 
 	@Test
-	public void testFrightTime() {
+	public void testFlightTime() {
 		// prepare
 		ZonedDateTime departure = ZonedDateTime.of(2014, 12, 1, 14, 5, 0, 0,
 				ZoneId.of("Europe/Berlin"));
