@@ -13,11 +13,7 @@ public class ProgrammersDayTest {
 	 * Programmer’s Day is the 256th day of the year.
 	 */
 	public static LocalDate programmersDay(int year) {
-		LocalDate day = LocalDate.of(year, 9, 13);
-		if (day.isLeapYear()) {
-			return LocalDate.of(year, 9, 12);
-		}
-		return day;
+		return LocalDate.ofYearDay(year, 256);
 	}
 
 	public static LocalDate programmersDay_old(int year) {
