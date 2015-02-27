@@ -14,9 +14,9 @@ public class FlightTimeTest {
 	@Test
 	public void testFlightTime() {
 		// prepare
-		ZonedDateTime departure = ZonedDateTime.of(2014, 12, 1, 15, 5, 0, 0,
+		ZonedDateTime departure = ZonedDateTime.of(2014, 12, 1, 3, 5, 0, 0,
 				ZoneId.of("America/Los_Angeles"));
-		Duration take = Duration.ZERO.plusHours(10).plusMinutes(30);
+		Duration take = Duration.ZERO.plusHours(10).plusMinutes(50);
 		ZoneId zone = ZoneId.of("Europe/Berlin");
 
 		// test
@@ -24,7 +24,7 @@ public class FlightTimeTest {
 
 		// verify
 		ZonedDateTime expect = ZonedDateTime
-				.of(2014, 12, 2, 10, 35, 0, 0, zone);
+				.of(2014, 12, 1, 22, 55, 0, 0, zone);
 
 		assertThat(arrival, is(expect));
 	}
