@@ -25,7 +25,7 @@ public class Cal {
 	 * @param out
 	 *            output print stream, not null
 	 * @param date
-	 *            calender date, not null
+	 *            calendar date, not null
 	 */
 	public static void cal(PrintStream out, LocalDate date) {
 		if (out == null) {
