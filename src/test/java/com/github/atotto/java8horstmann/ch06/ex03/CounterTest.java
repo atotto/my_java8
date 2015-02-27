@@ -24,7 +24,7 @@ public class CounterTest {
 	public void benchAtomicLong() {
 		Benchmark b = () -> {
 			AtomicLong atomic = new AtomicLong();
-			ExecutorService pool = Executors.newCachedThreadPool();
+			ExecutorService pool = Executors.newFixedThreadPool(threads);
 			for (int th = 0; th < threads; th++) {
 				pool.submit(() -> {
 					for (int i = 0; i < iterations; i++) {
@@ -50,7 +50,7 @@ public class CounterTest {
 	public void benchLongAdder() {
 		Benchmark b = () -> {
 			LongAdder adder = new LongAdder();
-			ExecutorService pool = Executors.newCachedThreadPool();
+			ExecutorService pool = Executors.newFixedThreadPool(threads);
 			for (int th = 0; th < threads; th++) {
 				pool.submit(() -> {
 					for (int i = 0; i < iterations; i++) {
@@ -88,7 +88,7 @@ public class CounterTest {
 
 		Benchmark b = () -> {
 			Counter counter = new Counter();
-			ExecutorService pool = Executors.newCachedThreadPool();
+			ExecutorService pool = Executors.newFixedThreadPool(threads);
 			for (int th = 0; th < threads; th++) {
 				pool.submit(() -> {
 					for (int i = 0; i < iterations; i++) {
