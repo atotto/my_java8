@@ -16,5 +16,18 @@ Integer.MAX_VALUEより大きい値を扱うときにマイナスでの扱いに
 
 http://en.wikipedia.org/wiki/Euclidean_algorithm
 
+## ex04
 
+skip
+
+## ex05
+
+result:
+
+```
+BenchStream short 	    181520 ns/op 
+BenchForEach short 	    467950 ns/op 
+BenchStream long  	   2499650 ns/op 
+BenchForEach long  	   3178850 ns/op 
+```
 
