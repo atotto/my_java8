@@ -47,3 +47,12 @@ skip
 
 http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8-b132/java/io/BufferedReader.java#BufferedReader.lines%28%29
 
+## ex10
+
+skip
+
+## ex11
+
+```
+Write a program that gets the contents of a password-protected web page. Call URLConnection connection = url.openConnection();. Form the string username: password and encode it in Base64. Then call connection.setRequestProperty("Authorization", "Basic " + encoded string), followed by connection.connect() and connection.getInputStream().
+```
