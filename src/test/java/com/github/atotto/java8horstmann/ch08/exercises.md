@@ -35,5 +35,15 @@ BenchForEach long  	   3178850 ns/op
 
 Total Ordering（全順序）については、プログラミング原論 P.53を参照。
 
+## ex07
 
+skip
+
+## ex08
+
+skip
+
+## ex09
+
+http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/8-b132/java/io/BufferedReader.java#BufferedReader.lines%28%29
 
