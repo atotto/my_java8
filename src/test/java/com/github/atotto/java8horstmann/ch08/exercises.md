@@ -31,3 +31,9 @@ BenchStream long  	   2499650 ns/op
 BenchForEach long  	   3178850 ns/op 
 ```
 
+## ex06
+
+Total Ordering（全順序）については、プログラミング原論 P.53を参照。
+
+
+
