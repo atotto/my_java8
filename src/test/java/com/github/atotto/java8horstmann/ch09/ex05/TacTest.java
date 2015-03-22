@@ -15,7 +15,7 @@ public class TacTest {
 	public static void tac(String path, String storepath) throws IOException {
 		byte[] data = Files.readAllBytes(Paths.get(path));
 		byte[] ndata = reverse(data);
-		writeFile(storepath, ndata);
+		Files.write(Paths.get(storepath), ndata, StandardOpenOption.CREATE);
 	}
 
 	private static byte[] reverse(byte[] data) {
@@ -25,11 +25,6 @@ public class TacTest {
 			ndata[i] = data[size - i - 1];
 		}
 		return ndata;
-	}
-
-	private static void writeFile(String filename, byte[] data)
-			throws IOException {
-		Files.write(Paths.get(filename), data, StandardOpenOption.CREATE);
 	}
 
 	@Test
