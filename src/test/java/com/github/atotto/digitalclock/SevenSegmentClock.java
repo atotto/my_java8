@@ -4,8 +4,6 @@ import java.util.Calendar;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -92,28 +90,17 @@ public class SevenSegmentClock extends Parent {
 		delayTimeline.getKeyFrames().add(
 				new KeyFrame(new Duration(
 						1000 - (System.currentTimeMillis() % 1000)),
-						new EventHandler<ActionEvent>() {
-							@Override
-							public void handle(ActionEvent event) {
-								if (secondTimeline != null) {
-									secondTimeline.stop();
-								}
-								secondTimeline = new Timeline();
-								secondTimeline
-										.setCycleCount(Timeline.INDEFINITE);
-								secondTimeline
-										.getKeyFrames()
-										.add(new KeyFrame(
-												Duration.seconds(1),
-												new EventHandler<ActionEvent>() {
-													@Override
-													public void handle(
-															ActionEvent event) {
-														refreshClocks();
-													}
-												}));
-								secondTimeline.play();
+						(event) -> {
+							if (secondTimeline != null) {
+								secondTimeline.stop();
 							}
+							secondTimeline = new Timeline();
+							secondTimeline.setCycleCount(Timeline.INDEFINITE);
+							secondTimeline.getKeyFrames().add(
+									new KeyFrame(Duration.seconds(1), (e) -> {
+										refreshClocks();
+									}));
+							secondTimeline.play();
 						}));
 		delayTimeline.play();
 	}
