@@ -97,7 +97,7 @@ public class PhotoClock extends Application {
 					}
 				});
 
-		// add digital clock
+		// === digital clock ===
 		clock = new SevenSegmentClock(Color.ORANGERED, Color.WHITESMOKE);
 
 		clock.layoutXProperty().bind(scene.widthProperty().add(-400));
@@ -107,50 +107,44 @@ public class PhotoClock extends Application {
 
 		// color
 		final ColorPicker colorPicker = new ColorPicker(clock.getOnColor());
-		colorPicker.setOpacity(0); // hide button // FIXME
+		colorPicker.setOpacity(0); // Hide colorPicker button.
+		// If this colorPicker clicked, do nothing.
+		// This colorPicker is shown at MenuItem("Color").
+		colorPicker.setOnMouseClicked((e) -> {
+			colorPicker.hide();
+		});
 		colorPicker.setOnAction((e) -> {
 			Color newColor = colorPicker.getValue();
 			clock.setOnColor(newColor);
 		});
 
-		// add context menu
+		// === context menu ===
 		final ContextMenu contextMenu = new ContextMenu();
-		contextMenu.setOnShowing((e) -> {
-			System.out.println("showing");
-		});
-		contextMenu.setOnShown((e) -> {
-			System.out.println("shown");
-		});
 
 		MenuItem about = new MenuItem("Clock ON/OFF");
 		about.setOnAction((e) -> {
 			clockEnable = !clockEnable;
 			if (clockEnable) {
-				System.out.println("clock on");
 				clock.on();
 			} else {
-				System.out.println("clock off");
 				clock.off();
 			}
 		});
 		MenuItem color = new MenuItem("Color");
 		color.setOnAction((e) -> {
-			System.out.println("Color");
 			colorPicker.show();
 		});
 		MenuItem quit = new MenuItem("Quit");
 		quit.setOnAction((e) -> {
-			System.out.println("Quit");
 			System.exit(0);
 		});
 		contextMenu.getItems().addAll(about, color, quit);
-
-		setting.setOnMouseClicked((e) -> contextMenu.show(setting, Side.BOTTOM,
-				0, 0));
+		setting.setOnMouseClicked((e) -> {
+			contextMenu.show(setting, Side.BOTTOM, 0, 0);
+		});
 
 		root.getChildren().addAll(background, fullscreen, setting, clock,
 				colorPicker);
-
 		stage.show();
 	}
 
