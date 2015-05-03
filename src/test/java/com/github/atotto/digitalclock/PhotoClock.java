@@ -4,14 +4,22 @@ import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebHistory;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -107,12 +115,6 @@ public class PhotoClock extends Application {
 
 		// color
 		final ColorPicker colorPicker = new ColorPicker(clock.getOnColor());
-		colorPicker.setOpacity(0); // Hide colorPicker button.
-		// If this colorPicker clicked, do nothing.
-		// This colorPicker is shown at MenuItem("Color").
-		colorPicker.setOnMouseClicked((e) -> {
-			colorPicker.hide();
-		});
 		colorPicker.setOnAction((e) -> {
 			Color newColor = colorPicker.getValue();
 			clock.setOnColor(newColor);
@@ -121,8 +123,8 @@ public class PhotoClock extends Application {
 		// === context menu ===
 		final ContextMenu contextMenu = new ContextMenu();
 
-		MenuItem about = new MenuItem("Clock ON/OFF");
-		about.setOnAction((e) -> {
+		MenuItem clocksw = new MenuItem("Clock ON/OFF");
+		clocksw.setOnAction((e) -> {
 			clockEnable = !clockEnable;
 			if (clockEnable) {
 				clock.on();
@@ -130,21 +132,38 @@ public class PhotoClock extends Application {
 				clock.off();
 			}
 		});
+		MenuItem backgroundSelect = new MenuItem("Select background image");
+		Stage backgroundSelectorPane = createBackgroundSelectorPane(stage);
+		backgroundSelect.setOnAction((e) -> {
+			backgroundSelectorPane.setX(stage.getX());
+			backgroundSelectorPane.setY(stage.getY());
+			backgroundSelectorPane.setWidth(stage.getWidth() + 100);
+			backgroundSelectorPane.setHeight(stage.getHeight() + 100);
+			stage.hide();
+			backgroundSelectorPane.showAndWait();
+		});
 		MenuItem color = new MenuItem("Color");
 		color.setOnAction((e) -> {
-			colorPicker.show();
+			Stage st = new Stage();
+			st.initModality(Modality.APPLICATION_MODAL);
+			st.initOwner(stage);
+			st.setX(stage.getX());
+			st.setY(stage.getY());
+
+			Scene sc = new Scene(colorPicker, 200, 300);
+			st.setScene(sc);
+			st.showAndWait();
 		});
 		MenuItem quit = new MenuItem("Quit");
 		quit.setOnAction((e) -> {
 			System.exit(0);
 		});
-		contextMenu.getItems().addAll(about, color, quit);
+		contextMenu.getItems().addAll(clocksw, backgroundSelect, color, quit);
 		setting.setOnMouseClicked((e) -> {
 			contextMenu.show(setting, Side.BOTTOM, 0, 0);
 		});
 
-		root.getChildren().addAll(background, fullscreen, setting, clock,
-				colorPicker);
+		root.getChildren().addAll(background, fullscreen, setting, clock);
 		stage.show();
 	}
 
@@ -157,5 +176,69 @@ public class PhotoClock extends Application {
 	public void stop() throws Exception {
 		super.stop();
 		clock.stop();
+	}
+
+	private Stage createBackgroundSelectorPane(Stage stage) {
+		Stage st = new Stage();
+		st.initStyle(StageStyle.UNDECORATED);
+		st.initModality(Modality.APPLICATION_MODAL);
+		st.initOwner(stage);
+
+		WebView webView = new WebView();
+		WebEngine engine = webView.getEngine();
+
+		TextField urlTextField = new TextField("http://");
+		Button backButton = new Button("<<");
+		backButton.setDisable(true);
+		Button forwardButton = new Button(">>");
+		forwardButton.setDisable(true);
+		urlTextField.setOnAction((e) -> {
+			engine.load(((TextField) e.getSource()).getText());
+		});
+		engine.setOnStatusChanged((e) -> {
+			WebHistory ht = engine.getHistory();
+			if (ht.getCurrentIndex() > 0) {
+				backButton.setDisable(false);
+			} else {
+				backButton.setDisable(true);
+			}
+			if (ht.getCurrentIndex() < ht.getEntries().size() - 1) {
+				forwardButton.setDisable(false);
+			} else {
+				forwardButton.setDisable(true);
+			}
+		});
+		backButton.setOnAction((e) -> {
+			WebHistory ht = engine.getHistory();
+			ht.go(-1);
+			urlTextField.setText(engine.getLocation());
+		});
+		forwardButton.setOnAction((e) -> {
+			WebHistory ht = engine.getHistory();
+			ht.go(1);
+			urlTextField.setText(engine.getLocation());
+		});
+		Button ok = new Button("OK");
+		ok.setOnAction((e) -> {
+			background.setImage(webView.snapshot(null, null));
+			stage.show();
+			st.close();
+		});
+		Button cancel = new Button("Cancel");
+		cancel.setOnAction((e) -> {
+			stage.show();
+			st.close();
+		});
+		BorderPane pane = new BorderPane();
+		HBox ctrl = new HBox(ok, cancel);
+		HBox box = new HBox(backButton, forwardButton, urlTextField);
+
+		pane.setTop(box);
+		pane.setCenter(webView);
+		pane.setBottom(ctrl);
+
+		Scene sc = new Scene(pane, 200, 300);
+		st.setScene(sc);
+		return st;
 	}
 }
