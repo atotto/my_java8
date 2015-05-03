@@ -23,7 +23,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class PhotoClock extends Application {
+public class DigitalClock extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
