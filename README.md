@@ -1,3 +1,3 @@
-# java 8 [![Build Status](https://travis-ci.org/atotto/my_java8.svg)](https://travis-ci.org/atotto/my_java8)
+[![Build Status](https://travis-ci.com/atotto/my_java8.svg?branch=master)](https://travis-ci.com/atotto/my_java8)
 
-
+# java 8 learning project
